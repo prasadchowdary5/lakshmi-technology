@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laxmi Technology - Digital Services</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #4a00e0;
+            --secondary: #8e2de2;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --transition: all 0.3s ease;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        /* Navigation Styles */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+            display: block;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(74, 0, 224, 0.8), rgba(142, 45, 226, 0.8)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 5rem 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .service-content {
+            padding: 1.5rem;
+        }
+
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .service-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-link {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .service-link:hover {
+            color: var(--secondary);
+        }
+
+        /* Job Updates Section */
+        .job-updates {
+            padding: 3rem 0;
+            background-color: #f8f9fa;
+        }
+
+        .job-updates-container {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .job-updates-content {
+            flex: 2;
+        }
+
+        .job-updates-sidebar {
+            flex: 1;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 400px;
+            overflow-y: auto;
+            position: sticky;
+            top: 100px;
+        }
+
+        .job-updates-sidebar h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+
+        .job-list {
+            list-style: none;
+        }
+
+        .job-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .job-item:last-child {
+            border-bottom: none;
+        }
+
+        .job-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .job-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .job-updates-container {
+                flex-direction: column;
+            }
+            
+            .job-updates-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+
+        /* Animation for job updates */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .job-item {
+            animation: fadeIn 0.5s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">💻</span>
+                    <h1>Laxmi Technology</h1>
+                </div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <nav>
+                    <ul id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li>
+                            <a href="#">Online Services ▾</a>
+                            <ul class="dropdown">
+                                <li><a href="#" id="panCardService">PAN Card Services</a></li>
+                                <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Card Download</a></li>
+                                <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG Services</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="excel.html">Excel Tutorials</a></li>
+                        <li><a href="resume.html">Resume Builder</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Digital Solutions for Modern India</h2>
+            <p>Laxmi Technology provides seamless access to essential government services and digital tools to empower every citizen.</p>
+            <a href="#" class="cta-button">Explore Services</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Digital Services</h2>
+            </div>
+            <div class="services-grid">
+                <!-- PAN Card Service -->
+                <div class="service-card" id="panServiceCard">
+                    <div class="service-icon">
+                        📝
+                    </div>
+                    <div class="service-content">
+                        <h3>Instant PAN Service</h3>
+                        <p>Apply for a new PAN card or make corrections to your existing PAN with our simplified process.</p>
+                        <a href="#" class="service-link" id="panServiceLink">Apply Now →</a>
+                    </div>
+                </div>
+
+                <!-- Aadhar Card Service -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        🆔
+                    </div>
+                    <div class="service-content">
+                        <h3>Aadhar Card Download</h3>
+                        <p>Download your Aadhar card instantly or check your Aadhar status with our direct links.</p>
+                        <a href="https://uidai.gov.in/" target="_blank" class="service-link">Access Service →</a>
+                    </div>
+                </div>
+
+                <!-- UMANG Services -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        📱
+                    </div>
+                    <div class="service-content">
+                        <h3>UMANG Services</h3>
+                        <p>Access multiple government services through the UMANG platform for a unified experience.</p>
+                        <a href="https://web.umang.gov.in/landing/" target="_blank" class="service-link">Explore UMANG →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Job Updates Section -->
+    <section class="job-updates">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Job Updates</h2>
+            </div>
+            <div class="job-updates-container">
+                <div class="job-updates-content">
+                    <p>We regularly update this section with the latest government and private job opportunities. Check back frequently for new openings.</p>
+                    <!-- Content area for job descriptions -->
+                </div>
+                <div class="job-updates-sidebar">
+                    <h3>Recent Job Postings</h3>
+                    <ul class="job-list" id="jobList">
+                        <!-- Job items will be added dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Laxmi Technology</h3>
+                    <p>Your trusted partner for digital government services and technological solutions.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">PAN Card Services</a></li>
+                        <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Services</a></li>
+                        <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="excel.html">Excel Tutorials</a></li>
+                        <li><a href="resume.html">Resume Builder</a></li>
+                        <li><a href="#">Job Updates</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Laxmi Technology. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PAN Card Registration Modal -->
+    <div id="panModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 2rem; border-radius: 10px; width: 90%; max-width: 500px; box-shadow: 0 5px 25px rgba(0,0,0,0.2);">
+            <h2 style="color: var(--primary); margin-bottom: 1.5rem; text-align: center;">PAN Card Registration</h2>
+            <form id="panForm">
+                <div style="margin-bottom: 1rem;">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Full Name</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="mobile" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Address</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="address" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Address</label>
+                    <textarea id="address" name="address" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; min-height: 100px;"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" style="flex: 1; background: var(--primary); color: white; border: none; padding: 0.8rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);">Submit</button>
+                    <button type="button" id="closeModal" style="flex: 1; background: #ddd; color: var(--dark); border: none; padding: 0.8rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // PAN Card Service Modal
+        const panServiceCard = document.getElementById('panServiceCard');
+        const panServiceLink = document.getElementById('panServiceLink');
+        const panCardService = document.getElementById('panCardService');
+        const panModal = document.getElementById('panModal');
+        const closeModal = document.getElementById('closeModal');
+        const panForm = document.getElementById('panForm');
+
+        function openPanModal() {
+            panModal.style.display = 'flex';
+        }
+
+        function closePanModal() {
+            panModal.style.display = 'none';
+        }
+
+        panServiceCard.addEventListener('click', openPanModal);
+        panServiceLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            openPanModal();
+        });
+        panCardService.addEventListener('click', (e) => {
+            e.preventDefault();
+            openPanModal();
+        });
+
+        closeModal.addEventListener('click', closePanModal);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === panModal) {
+                closePanModal();
+            }
+        });
+
+        // Form submission
+        panForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your PAN card registration! We will contact you soon.');
+            closePanModal();
+            panForm.reset();
+        });
+
+        // Job Updates Data (This would typically come from a database)
+        const jobUpdates = [
+            { title: 'Software Engineer', company: 'Tech Solutions Inc.', location: 'Bangalore', date: '2023-10-15' },
+            { title: 'Data Analyst', company: 'Analytics Pro', location: 'Hyderabad', date: '2023-10-14' },
+            { title: 'Web Developer', company: 'Digital Creations', location: 'Mumbai', date: '2023-10-12' },
+            { title: 'IT Support Specialist', company: 'Service First', location: 'Delhi', date: '2023-10-10' },
+            { title: 'Network Administrator', company: 'Connect Systems', location: 'Pune', date: '2023-10-08' },
+            { title: 'UX Designer', company: 'Creative Minds', location: 'Chennai', date: '2023-10-05' },
+            { title: 'Database Administrator', company: 'Data Systems Ltd.', location: 'Kolkata', date: '2023-10-03' }
+        ];
+
+        // Populate job updates
+        const jobList = document.getElementById('jobList');
+        
+        jobUpdates.forEach(job => {
+            const jobItem = document.createElement('li');
+            jobItem.className = 'job-item';
+            
+            const jobTitle = document.createElement('div');
+            jobTitle.className = 'job-title';
+            jobTitle.textContent = job.title;
+            
+            const jobMeta = document.createElement('div');
+            jobMeta.className = 'job-meta';
+            jobMeta.innerHTML = `
+                <span>${job.company}</span>
+                <span>${new Date(job.date).toLocaleDateString()}</span>
+            `;
+            
+            jobItem.appendChild(jobTitle);
+            jobItem.appendChild(jobMeta);
+            jobList.appendChild(jobItem);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Tutorials - Laxmi Technology</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #4a00e0;
+            --secondary: #8e2de2;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --transition: all 0.3s ease;
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        /* Navigation Styles */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+            display: block;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(74, 0, 224, 0.9), rgba(142, 45, 226, 0.9)), url('https://images.unsplash.com/photo-1618044619884-20dadb4981c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Excel Content */
+        .excel-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .section-title {
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .formula-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .formula-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .formula-card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .formula-card p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+
+        .formula-example {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #e9ecef;
+        }
+
+        .shortcuts-list {
+            list-style: none;
+        }
+
+        .shortcuts-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .shortcuts-list li:last-child {
+            border-bottom: none;
+        }
+
+        .shortcut-key {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .video-placeholder {
+            background: #e9ecef;
+            border-radius: 8px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-card h4 {
+            padding: 1rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .excel-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                padding-top: 2rem;
+                transition: var(--transition);
+            }
+            
+            nav ul.active {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 1rem 0;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .page-header p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">💻</span>
+                    <h1>Laxmi Technology</h1>
+                </div>
+                <button class="menu-toggle" id="menuToggle">☰</button>
+                <nav>
+                    <ul id="navMenu">
+                        <li><a href="index.html">Home</a></li>
+                        <li>
+                            <a href="#">Online Services ▾</a>
+                            <ul class="dropdown">
+                                <li><a href="#" id="panCardService">PAN Card Services</a></li>
+                                <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Card Download</a></li>
+                                <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG Services</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="excel.html" class="active">Excel Tutorials</a></li>
+                        <li><a href="resume.html">Resume Builder</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Excel Tutorials & Resources</h1>
+            <p>Master Microsoft Excel with our comprehensive tutorials, formulas, shortcuts, and video guides</p>
+        </div>
+    </section>
+
+    <!-- Excel Content -->
+    <div class="container">
+        <div class="excel-content">
+            <div class="main-content">
+                <!-- Formulas Section -->
+                <section class="formulas-section">
+                    <div class="section-title">
+                        <h2>Essential Excel Formulas</h2>
+                    </div>
+                    <div class="formula-grid">
+                        <div class="formula-card">
+                            <h3>VLOOKUP</h3>
+                            <p>Looks for a value in the leftmost column of a table and returns a value in the same row from a specified column.</p>
+                            <div class="formula-example">
+                                =VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>SUMIF</h3>
+                            <p>Adds the cells specified by a given condition or criteria.</p>
+                            <div class="formula-example">
+                                =SUMIF(range, criteria, [sum_range])
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>IF</h3>
+                            <p>Returns one value if a condition is true and another value if it's false.</p>
+                            <div class="formula-example">
+                                =IF(logical_test, value_if_true, value_if_false)
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>INDEX-MATCH</h3>
+                            <p>A powerful combination to look up values in a table based on other values.</p>
+                            <div class="formula-example">
+                                =INDEX(return_range, MATCH(lookup_value, lookup_range, 0))
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>COUNTIF</h3>
+                            <p>Counts the number of cells within a range that meet the given condition.</p>
+                            <div class="formula-example">
+                                =COUNTIF(range, criteria)
+                            </div>
+                        </div>
+                        <div class="formula-card">
+                            <h3>CONCATENATE</h3>
+                            <p>Joins several text strings into one text string.</p>
+                            <div class="formula-example">
+                                =CONCATENATE(text1, text2, ...)
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Video Tutorials Section -->
+                <section class="videos-section">
+                    <div class="section-title">
+                        <h2>Video Tutorials</h2>
+                    </div>
+                    <p class="video-note" style="margin-bottom: 1.5rem; color: #666; font-style: italic;">
+                        Space reserved for 30-second tutorial videos (to be added later)
+                    </p>
+                    <div class="video-grid">
+                        <div class="video-card">
+                            <div class="video-placeholder">
+                                📹 Video Placeholder
+                            </div>
+                            <h4>VLOOKUP Explained</h4>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-placeholder">
+                                📹 Video Placeholder
+                            </div>
+                            <h4>Pivot Tables Basics</h4>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-placeholder">
+                                📹 Video Placeholder
+                            </div>
+                            <h4>Conditional Formatting</h4>
+                        </div>
+                        <div class="video-card">
+                            <div class="video-placeholder">
+                                📹 Video Placeholder
+                            </div>
+                            <h4>Data Validation</h4>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar with Shortcuts -->
+            <div class="sidebar">
+                <div class="section-title">
+                    <h2>Keyboard Shortcuts</h2>
+                </div>
+                <ul class="shortcuts-list">
+                    <li>
+                        <span>Select entire worksheet</span>
+                        <span class="shortcut-key">Ctrl + A</span>
+                    </li>
+                    <li>
+                        <span>Bold text</span>
+                        <span class="shortcut-key">Ctrl + B</span>
+                    </li>
+                    <li>
+                        <span>Copy selection</span>
+                        <span class="shortcut-key">Ctrl + C</span>
+                    </li>
+                    <li>
+                        <span>Fill down</span>
+                        <span class="shortcut-key">Ctrl + D</span>
+                    </li>
+                    <li>
+                        <span>Find</span>
+                        <span class="shortcut-key">Ctrl + F</span>
+                    </li>
+                    <li>
+                        <span>Replace</span>
+                        <span class="shortcut-key">Ctrl + H</span>
+                    </li>
+                    <li>
+                        <span>Insert hyperlink</span>
+                        <span class="shortcut-key">Ctrl + K</span>
+                    </li>
+                    <li>
+                        <span>New workbook</span>
+                        <span class="shortcut-key">Ctrl + N</span>
+                    </li>
+                    <li>
+                        <span>Open workbook</span>
+                        <span class="shortcut-key">Ctrl + O</span>
+                    </li>
+                    <li>
+                        <span>Print</span>
+                        <span class="shortcut-key">Ctrl + P</span>
+                    </li>
+                    <li>
+                        <span>Save</span>
+                        <span class="shortcut-key">Ctrl + S</span>
+                    </li>
+                    <li>
+                        <span>Paste</span>
+                        <span class="shortcut-key">Ctrl + V</span>
+                    </li>
+                    <li>
+                        <span>Cut</span>
+                        <span class="shortcut-key">Ctrl + X</span>
+                    </li>
+                    <li>
+                        <span>Undo</span>
+                        <span class="shortcut-key">Ctrl + Z</span>
+                    </li>
+                    <li>
+                        <span>Redo</span>
+                        <span class="shortcut-key">Ctrl + Y</span>
+                    </li>
+                    <li>
+                        <span>Insert new worksheet</span>
+                        <span class="shortcut-key">Shift + F11</span>
+                    </li>
+                    <li>
+                        <span>Create table</span>
+                        <span class="shortcut-key">Ctrl + T</span>
+                    </li>
+                    <li>
+                        <span>AutoSum</span>
+                        <span class="shortcut-key">Alt + =</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Laxmi Technology</h3>
+                    <p>Your trusted partner for digital government services and technological solutions.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">PAN Card Services</a></li>
+                        <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Services</a></li>
+                        <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="excel.html">Excel Tutorials</a></li>
+                        <li><a href="resume.html">Resume Builder</a></li>
+                        <li><a href="#">Job Updates</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Laxmi Technology. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

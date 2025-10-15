@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Builder - Laxmi Technology</title>
+    <title>Resume Builder - Laxmi Technologies</title>
     <style>
         /* CSS Variables for consistent theming */
         :root {
@@ -41,7 +41,7 @@
 
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
             color: white;
             padding: 1rem 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -62,13 +62,17 @@
             gap: 10px;
         }
 
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
         .logo h1 {
             font-size: 1.8rem;
             font-weight: 700;
-        }
-
-        .logo-icon {
-            font-size: 2rem;
+            background: linear-gradient(to right, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Navigation Styles */
@@ -92,7 +96,7 @@
         }
 
         nav ul li a:hover {
-            color: var(--accent);
+            color: #ff6b6b;
         }
 
         nav ul li a::after {
@@ -102,12 +106,54 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
             transition: var(--transition);
         }
 
         nav ul li a:hover::after {
             width: 100%;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .dropdown li {
+            margin: 0;
+            width: 100%;
+        }
+
+        .dropdown li a {
+            color: var(--dark);
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown li:last-child a {
+            border-bottom: none;
+        }
+
+        .dropdown li a:hover {
+            background-color: #f8f9fa;
+            color: var(--primary);
+        }
+
+        nav ul li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
 
         .menu-toggle {
@@ -175,7 +221,7 @@
 
         .section-title h2 {
             font-size: 1.8rem;
-            color: var(--primary);
+            color: #4a00e0;
         }
 
         .section-title::after {
@@ -185,7 +231,7 @@
             left: 0;
             width: 60px;
             height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
             border-radius: 2px;
         }
 
@@ -215,7 +261,7 @@
         .form-group textarea:focus,
         .form-group select:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: #4a00e0;
             box-shadow: 0 0 0 3px rgba(74, 0, 224, 0.1);
         }
 
@@ -227,7 +273,7 @@
 
         .btn {
             display: inline-block;
-            background: var(--primary);
+            background: #4a00e0;
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
@@ -239,7 +285,7 @@
         }
 
         .btn:hover {
-            background: var(--secondary);
+            background: #8e2de2;
             transform: translateY(-2px);
         }
 
@@ -252,7 +298,7 @@
         }
 
         .btn-accent {
-            background: var(--accent);
+            background: #ff6b6b;
         }
 
         .btn-accent:hover {
@@ -278,12 +324,12 @@
             text-align: center;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid var(--primary);
+            border-bottom: 2px solid #4a00e0;
         }
 
         .resume-header h2 {
             font-size: 2rem;
-            color: var(--primary);
+            color: #4a00e0;
             margin-bottom: 0.5rem;
         }
 
@@ -297,7 +343,7 @@
 
         .resume-section h3 {
             font-size: 1.3rem;
-            color: var(--primary);
+            color: #4a00e0;
             margin-bottom: 0.8rem;
             border-bottom: 1px solid #eee;
             padding-bottom: 0.3rem;
@@ -333,7 +379,7 @@
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
             color: white;
             padding: 3rem 0 1.5rem;
         }
@@ -359,7 +405,7 @@
             left: 0;
             width: 40px;
             height: 3px;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
         }
 
         .footer-column ul {
@@ -411,7 +457,7 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 70px);
-                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                background: linear-gradient(135deg, #4a00e0, #8e2de2);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
@@ -425,6 +471,28 @@
             
             nav ul li {
                 margin: 1rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: rgba(255, 255, 255, 0.1);
+                box-shadow: none;
+                margin-top: 0.5rem;
+                display: none;
+            }
+            
+            .dropdown.active {
+                display: block;
+            }
+            
+            .dropdown li a {
+                color: white;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
             
             .page-header h1 {
@@ -451,15 +519,16 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <span class="logo-icon">💻</span>
-                    <h1>Laxmi Technology</h1>
+                    <!-- Replace with your actual logo path -->
+                    <img src="LOGO.png" alt="Laxmi Technologies" class="logo-img">
+                    <h1>Laxmi Technologies</h1>
                 </div>
                 <button class="menu-toggle" id="menuToggle">☰</button>
                 <nav>
                     <ul id="navMenu">
                         <li><a href="index.html">Home</a></li>
-                        <li>
-                            <a href="#">Online Services ▾</a>
+                        <li class="dropdown-parent">
+                            <a href="#" id="onlineServices">Online Services ▾</a>
                             <ul class="dropdown">
                                 <li><a href="#" id="panCardService">PAN Card Services</a></li>
                                 <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Card Download</a></li>
@@ -643,7 +712,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Laxmi Technology</h3>
+                    <h3>Laxmi Technologies</h3>
                     <p>Your trusted partner for digital government services and technological solutions.</p>
                 </div>
                 <div class="footer-column">
@@ -666,10 +735,39 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Laxmi Technology. All rights reserved.</p>
+                <p>&copy; 2023 Laxmi Technologies. All rights reserved.</p>
             </div>
         </div>
     </footer>
+
+    <!-- PAN Card Registration Modal -->
+    <div id="panModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 2rem; border-radius: 10px; width: 90%; max-width: 500px; box-shadow: 0 5px 25px rgba(0,0,0,0.2);">
+            <h2 style="color: #4a00e0; margin-bottom: 1.5rem; text-align: center;">PAN Card Registration</h2>
+            <form id="panForm">
+                <div style="margin-bottom: 1rem;">
+                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Full Name</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="mobile" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Address</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="address" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Address</label>
+                    <textarea id="address" name="address" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; min-height: 100px;"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <button type="submit" style="flex: 1; background: #4a00e0; color: white; border: none; padding: 0.8rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);">Submit</button>
+                    <button type="button" id="closeModal" style="flex: 1; background: #ddd; color: var(--dark); border: none; padding: 0.8rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script>
         // Mobile Menu Toggle
@@ -678,6 +776,53 @@
         
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
+        });
+
+        // Mobile Dropdown Toggle
+        const onlineServices = document.getElementById('onlineServices');
+        const dropdown = document.querySelector('.dropdown-parent .dropdown');
+        
+        if (window.innerWidth <= 768) {
+            onlineServices.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            });
+        }
+
+        // PAN Card Service Modal
+        const panCardService = document.getElementById('panCardService');
+        const panModal = document.getElementById('panModal');
+        const closeModal = document.getElementById('closeModal');
+        const panForm = document.getElementById('panForm');
+
+        function openPanModal() {
+            panModal.style.display = 'flex';
+        }
+
+        function closePanModal() {
+            panModal.style.display = 'none';
+        }
+
+        panCardService.addEventListener('click', (e) => {
+            e.preventDefault();
+            openPanModal();
+        });
+
+        closeModal.addEventListener('click', closePanModal);
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === panModal) {
+                closePanModal();
+            }
+        });
+
+        // Form submission
+        panForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your PAN card registration! We will contact you soon.');
+            closePanModal();
+            panForm.reset();
         });
 
         // Resume Builder Functionality

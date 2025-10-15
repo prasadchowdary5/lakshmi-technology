@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laxmi Technology - Digital Services</title>
+    <title>Laxmi Technologies - Digital Services</title>
     <style>
         /* CSS Variables for consistent theming */
         :root {
@@ -41,7 +41,7 @@
 
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
             color: white;
             padding: 1rem 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -62,13 +62,17 @@
             gap: 10px;
         }
 
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
         .logo h1 {
             font-size: 1.8rem;
             font-weight: 700;
-        }
-
-        .logo-icon {
-            font-size: 2rem;
+            background: linear-gradient(to right, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Navigation Styles */
@@ -92,7 +96,7 @@
         }
 
         nav ul li a:hover {
-            color: var(--accent);
+            color: #ff6b6b;
         }
 
         nav ul li a::after {
@@ -102,7 +106,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
             transition: var(--transition);
         }
 
@@ -185,7 +189,7 @@
 
         .cta-button {
             display: inline-block;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
             color: white;
             padding: 0.8rem 2rem;
             border-radius: 50px;
@@ -214,7 +218,7 @@
 
         .section-title h2 {
             font-size: 2.2rem;
-            color: var(--primary);
+            color: #4a00e0;
             display: inline-block;
         }
 
@@ -226,7 +230,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
             border-radius: 2px;
         }
 
@@ -251,7 +255,7 @@
         }
 
         .service-icon {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
             height: 120px;
             display: flex;
             align-items: center;
@@ -267,7 +271,7 @@
         .service-content h3 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--primary);
+            color: #4a00e0;
         }
 
         .service-content p {
@@ -275,16 +279,30 @@
             margin-bottom: 1.5rem;
         }
 
+        .contact-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
         .service-link {
             display: inline-block;
-            color: var(--primary);
+            color: #4a00e0;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
         }
 
         .service-link:hover {
-            color: var(--secondary);
+            color: #8e2de2;
         }
 
         /* Job Updates Section */
@@ -315,7 +333,7 @@
         }
 
         .job-updates-sidebar h3 {
-            color: var(--primary);
+            color: #4a00e0;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid #eee;
@@ -338,18 +356,31 @@
             font-weight: 600;
             color: var(--dark);
             margin-bottom: 0.3rem;
+            font-size: 1.1rem;
         }
 
         .job-meta {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
             font-size: 0.85rem;
             color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .job-company {
+            font-weight: 600;
+            color: #4a00e0;
+        }
+
+        .job-address {
+            grid-column: 1 / -1;
+            font-style: italic;
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
             color: white;
             padding: 3rem 0 1.5rem;
         }
@@ -375,7 +406,7 @@
             left: 0;
             width: 40px;
             height: 3px;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
         }
 
         .footer-column ul {
@@ -427,7 +458,7 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 70px);
-                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                background: linear-gradient(135deg, #4a00e0, #8e2de2);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
@@ -472,6 +503,10 @@
             .hero p {
                 font-size: 1rem;
             }
+            
+            .job-meta {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Animation for job updates */
@@ -508,7 +543,7 @@
         }
 
         .modal h2 {
-            color: var(--primary);
+            color: #4a00e0;
             margin-bottom: 1.5rem;
             text-align: center;
         }
@@ -549,7 +584,7 @@
         }
 
         .btn-primary {
-            background: var(--primary);
+            background: #4a00e0;
             color: white;
         }
 
@@ -569,8 +604,9 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <span class="logo-icon">💻</span>
-                    <h1>Laxmi Technology</h1>
+                    <!-- Replace with your actual logo path -->
+                    <img src="LOGO.png" alt="Laxmi Technologies" class="logo-img">
+                    <h1>Laxmi Technologies</h1>
                 </div>
                 <button class="menu-toggle" id="menuToggle">☰</button>
                 <nav>
@@ -596,7 +632,7 @@
     <section class="hero">
         <div class="container">
             <h2>Digital Solutions for Modern India</h2>
-            <p>Laxmi Technology provides seamless access to essential government services and digital tools to empower every citizen.</p>
+            <p>Laxmi Technologies provides seamless access to essential government services and digital tools to empower every citizen.</p>
             <a href="#" class="cta-button">Explore Services</a>
         </div>
     </section>
@@ -616,6 +652,13 @@
                     <div class="service-content">
                         <h3>Instant PAN Service</h3>
                         <p>Apply for a new PAN card or make corrections to your existing PAN with our simplified process.</p>
+                        
+                        <div class="contact-info">
+                            <p><strong>Contact us for PAN Card Services:</strong></p>
+                            <p>📞 Mobile: +91 98765 43210</p>
+                            <p>✉️ Email: pancard@laxmitech.com</p>
+                        </div>
+                        
                         <a href="#" class="service-link" id="panServiceLink">Apply Now →</a>
                     </div>
                 </div>
@@ -673,7 +716,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Laxmi Technology</h3>
+                    <h3>Laxmi Technologies</h3>
                     <p>Your trusted partner for digital government services and technological solutions.</p>
                 </div>
                 <div class="footer-column">
@@ -696,7 +739,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Laxmi Technology. All rights reserved.</p>
+                <p>&copy; 2023 Laxmi Technologies. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -795,13 +838,69 @@
 
         // Job Updates Data (This would typically come from a database)
         const jobUpdates = [
-            { title: 'Software Engineer', company: 'Tech Solutions Inc.', location: 'Bangalore', date: '2023-10-15' },
-            { title: 'Data Analyst', company: 'Analytics Pro', location: 'Hyderabad', date: '2023-10-14' },
-            { title: 'Web Developer', company: 'Digital Creations', location: 'Mumbai', date: '2023-10-12' },
-            { title: 'IT Support Specialist', company: 'Service First', location: 'Delhi', date: '2023-10-10' },
-            { title: 'Network Administrator', company: 'Connect Systems', location: 'Pune', date: '2023-10-08' },
-            { title: 'UX Designer', company: 'Creative Minds', location: 'Chennai', date: '2023-10-05' },
-            { title: 'Database Administrator', company: 'Data Systems Ltd.', location: 'Kolkata', date: '2023-10-03' }
+            { 
+                title: 'Software Engineer', 
+                company: 'Tech Solutions Inc.', 
+                qualification: 'B.Tech/B.E in Computer Science',
+                gender: 'Any',
+                salary: '₹6-10 LPA',
+                address: 'Bangalore, Karnataka',
+                date: '2023-10-15' 
+            },
+            { 
+                title: 'Data Analyst', 
+                company: 'Analytics Pro', 
+                qualification: 'B.Sc/M.Sc in Statistics',
+                gender: 'Any',
+                salary: '₹4-7 LPA',
+                address: 'Hyderabad, Telangana',
+                date: '2023-10-14' 
+            },
+            { 
+                title: 'Web Developer', 
+                company: 'Digital Creations', 
+                qualification: 'Any Graduate',
+                gender: 'Any',
+                salary: '₹3-6 LPA',
+                address: 'Mumbai, Maharashtra',
+                date: '2023-10-12' 
+            },
+            { 
+                title: 'IT Support Specialist', 
+                company: 'Service First', 
+                qualification: 'Diploma/Degree in IT',
+                gender: 'Any',
+                salary: '₹2.5-4 LPA',
+                address: 'Delhi',
+                date: '2023-10-10' 
+            },
+            { 
+                title: 'Network Administrator', 
+                company: 'Connect Systems', 
+                qualification: 'B.Tech/B.E in IT/Networking',
+                gender: 'Male',
+                salary: '₹5-8 LPA',
+                address: 'Pune, Maharashtra',
+                date: '2023-10-08' 
+            },
+            { 
+                title: 'UX Designer', 
+                company: 'Creative Minds', 
+                qualification: 'Any Design Degree',
+                gender: 'Any',
+                salary: '₹4-7 LPA',
+                address: 'Chennai, Tamil Nadu',
+                date: '2023-10-05' 
+            },
+            { 
+                title: 'Database Administrator', 
+                company: 'Data Systems Ltd.', 
+                qualification: 'B.Tech/MCA in Computer Science',
+                gender: 'Any',
+                salary: '₹6-9 LPA',
+                address: 'Kolkata, West Bengal',
+                date: '2023-10-03' 
+            }
         ];
 
         // Populate job updates
@@ -818,16 +917,25 @@
             const jobMeta = document.createElement('div');
             jobMeta.className = 'job-meta';
             jobMeta.innerHTML = `
-                <span>${job.company}</span>
-                <span>${new Date(job.date).toLocaleDateString()}</span>
+                <div><strong>Company:</strong> <span class="job-company">${job.company}</span></div>
+                <div><strong>Qualification:</strong> ${job.qualification}</div>
+                <div><strong>Gender:</strong> ${job.gender}</div>
+                <div><strong>Salary:</strong> ${job.salary}</div>
+                <div class="job-address"><strong>Address:</strong> ${job.address}</div>
             `;
+            
+            const jobDate = document.createElement('div');
+            jobDate.style.fontSize = '0.8rem';
+            jobDate.style.color = '#888';
+            jobDate.style.marginTop = '0.5rem';
+            jobDate.textContent = `Posted: ${new Date(job.date).toLocaleDateString()}`;
             
             jobItem.appendChild(jobTitle);
             jobItem.appendChild(jobMeta);
+            jobItem.appendChild(jobDate);
             jobList.appendChild(jobItem);
         });
     </script>
 </body>
-</html>
 </html>
 

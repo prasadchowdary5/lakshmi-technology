@@ -251,40 +251,180 @@
             font-weight: 600;
         }
 
-        .video-placeholder {
-            background: #e9ecef;
-            border-radius: 8px;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            color: #6c757d;
-            font-weight: 600;
+        /* Video Gallery Styles */
+        .video-gallery {
+            margin-top: 3rem;
         }
 
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
         }
 
         .video-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: var(--transition);
+            position: relative;
         }
 
         .video-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .video-card h4 {
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+            display: flex;
+            align-items: flex-end;
             padding: 1rem;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .video-card:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .video-info {
+            color: white;
+            width: 100%;
+        }
+
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .video-duration {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.8);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .video-card:hover .video-play-btn {
+            opacity: 1;
+        }
+
+        .video-play-btn:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-play-btn i {
+            font-size: 1.5rem;
             color: var(--primary);
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .modal-video {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .modal-video video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .modal-title {
+            color: white;
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        /* Video Filter */
+        .video-filter {
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .filter-btn {
+            background: #f1f1f1;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
         }
 
         /* Footer */
@@ -390,6 +530,16 @@
             .page-header p {
                 font-size: 1rem;
             }
+
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -486,38 +636,24 @@
                 </section>
 
                 <!-- Video Tutorials Section -->
-                <section class="videos-section">
+                <section class="video-gallery">
                     <div class="section-title">
-                        <h2>Video Tutorials</h2>
+                        <h2>Excel Video Tutorials</h2>
                     </div>
-                    <p class="video-note" style="margin-bottom: 1.5rem; color: #666; font-style: italic;">
-                        Space reserved for 30-second tutorial videos (to be added later)
-                    </p>
-                    <div class="video-grid">
-                        <div class="video-card">
-                            <div class="video-placeholder">
-                                📹 Video Placeholder
-                            </div>
-                            <h4>VLOOKUP Explained</h4>
-                        </div>
-                        <div class="video-card">
-                            <div class="video-placeholder">
-                                📹 Video Placeholder
-                            </div>
-                            <h4>Pivot Tables Basics</h4>
-                        </div>
-                        <div class="video-card">
-                            <div class="video-placeholder">
-                                📹 Video Placeholder
-                            </div>
-                            <h4>Conditional Formatting</h4>
-                        </div>
-                        <div class="video-card">
-                            <div class="video-placeholder">
-                                📹 Video Placeholder
-                            </div>
-                            <h4>Data Validation</h4>
-                        </div>
+                    
+                    <!-- Video Filter -->
+                    <div class="video-filter">
+                        <button class="filter-btn active" data-filter="all">All Videos</button>
+                        <button class="filter-btn" data-filter="basic">Basic Functions</button>
+                        <button class="filter-btn" data-filter="formulas">Formulas</button>
+                        <button class="filter-btn" data-filter="data">Data Analysis</button>
+                        <button class="filter-btn" data-filter="charts">Charts & Graphs</button>
+                        <button class="filter-btn" data-filter="advanced">Advanced Features</button>
+                    </div>
+                    
+                    <!-- Video Grid -->
+                    <div class="video-grid" id="videoGrid">
+                        <!-- Video cards will be generated by JavaScript -->
                     </div>
                 </section>
             </div>
@@ -605,6 +741,19 @@
         </div>
     </div>
 
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="modal-video">
+                <video id="modalVideo" controls>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="modal-title" id="modalTitle"></div>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -646,7 +795,131 @@
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
         });
+
+        // Video Data - Replace with your actual video data
+        const videoData = [
+            { id: 1, title: "VLOOKUP Formula", category: "formulas", duration: "0:30", src: "videos/vlookup.mp4" },
+            { id: 2, title: "SUMIF Function", category: "formulas", duration: "0:28", src: "videos/sumif.mp4" },
+            { id: 3, title: "IF Statement Basics", category: "formulas", duration: "0:25", src: "videos/if-statement.mp4" },
+            { id: 4, title: "INDEX-MATCH Explained", category: "formulas", duration: "0:32", src: "videos/index-match.mp4" },
+            { id: 5, title: "COUNTIF Function", category: "formulas", duration: "0:27", src: "videos/countif.mp4" },
+            { id: 6, title: "CONCATENATE Formula", category: "formulas", duration: "0:24", src: "videos/concatenate.mp4" },
+            { id: 7, title: "Excel Interface Overview", category: "basic", duration: "0:29", src: "videos/interface.mp4" },
+            { id: 8, title: "Data Entry Tips", category: "basic", duration: "0:31", src: "videos/data-entry.mp4" },
+            { id: 9, title: "Cell Formatting", category: "basic", duration: "0:26", src: "videos/cell-formatting.mp4" },
+            { id: 10, title: "Basic Calculations", category: "basic", duration: "0:28", src: "videos/basic-calculations.mp4" },
+            { id: 11, title: "Pivot Tables", category: "data", duration: "0:32", src: "videos/pivot-tables.mp4" },
+            { id: 12, title: "Data Sorting", category: "data", duration: "0:25", src: "videos/data-sorting.mp4" },
+            { id: 13, title: "Data Filtering", category: "data", duration: "0:27", src: "videos/data-filtering.mp4" },
+            { id: 14, title: "Conditional Formatting", category: "data", duration: "0:30", src: "videos/conditional-formatting.mp4" },
+            { id: 15, title: "Creating Bar Charts", category: "charts", duration: "0:29", src: "videos/bar-charts.mp4" },
+            { id: 16, title: "Line Graphs", category: "charts", duration: "0:26", src: "videos/line-graphs.mp4" },
+            { id: 17, title: "Pie Charts", category: "charts", duration: "0:24", src: "videos/pie-charts.mp4" },
+            { id: 18, title: "Advanced Chart Options", category: "charts", duration: "0:31", src: "videos/advanced-charts.mp4" },
+            { id: 19, title: "Macros Introduction", category: "advanced", duration: "0:32", src: "videos/macros.mp4" },
+            { id: 20, title: "Data Validation", category: "advanced", duration: "0:28", src: "videos/data-validation.mp4" },
+            // Add more videos up to 51...
+        ];
+
+        // Function to generate video cards
+        function generateVideoCards(videos) {
+            const videoGrid = document.getElementById('videoGrid');
+            videoGrid.innerHTML = '';
+            
+            videos.forEach(video => {
+                const videoCard = document.createElement('div');
+                videoCard.className = 'video-card';
+                videoCard.setAttribute('data-category', video.category);
+                
+                videoCard.innerHTML = `
+                    <div class="video-container">
+                        <video>
+                            <source src="${video.src}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="video-overlay">
+                            <div class="video-info">
+                                <div class="video-title">${video.title}</div>
+                                <div class="video-duration">${video.duration}</div>
+                            </div>
+                        </div>
+                        <div class="video-play-btn">
+                            <i>▶</i>
+                        </div>
+                    </div>
+                `;
+                
+                videoGrid.appendChild(videoCard);
+                
+                // Add click event to play video in modal
+                videoCard.addEventListener('click', () => {
+                    openVideoModal(video);
+                });
+            });
+        }
+
+        // Filter videos by category
+        function filterVideos(category) {
+            if (category === 'all') {
+                generateVideoCards(videoData);
+            } else {
+                const filteredVideos = videoData.filter(video => video.category === category);
+                generateVideoCards(filteredVideos);
+            }
+        }
+
+        // Open video modal
+        function openVideoModal(video) {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            const modalTitle = document.getElementById('modalTitle');
+            
+            modalVideo.src = video.src;
+            modalTitle.textContent = video.title;
+            modal.style.display = 'flex';
+            
+            // Play the video when modal opens
+            modalVideo.play();
+        }
+
+        // Close video modal
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const modalVideo = document.getElementById('modalVideo');
+            
+            modal.style.display = 'none';
+            modalVideo.pause();
+            modalVideo.currentTime = 0;
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate all video cards initially
+            generateVideoCards(videoData);
+            
+            // Set up filter buttons
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    // Filter videos
+                    filterVideos(button.getAttribute('data-filter'));
+                });
+            });
+            
+            // Set up modal close button
+            document.getElementById('closeModal').addEventListener('click', closeVideoModal);
+            
+            // Close modal when clicking outside the video
+            document.getElementById('videoModal').addEventListener('click', (e) => {
+                if (e.target.id === 'videoModal') {
+                    closeVideoModal();
+                }
+            });
+        });
     </script>
 </body>
-
 </html>

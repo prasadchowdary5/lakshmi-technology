@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel Tutorials - Laxmi Technology</title>
+    <title>Excel Tutorials - Laxmi Technologies</title>
     <style>
         /* CSS Variables for consistent theming */
         :root {
@@ -41,7 +41,7 @@
 
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
             color: white;
             padding: 1rem 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -62,13 +62,17 @@
             gap: 10px;
         }
 
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
         .logo h1 {
             font-size: 1.8rem;
             font-weight: 700;
-        }
-
-        .logo-icon {
-            font-size: 2rem;
+            background: linear-gradient(to right, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         /* Navigation Styles */
@@ -92,7 +96,7 @@
         }
 
         nav ul li a:hover {
-            color: var(--accent);
+            color: #ff6b6b;
         }
 
         nav ul li a::after {
@@ -102,12 +106,54 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
             transition: var(--transition);
         }
 
         nav ul li a:hover::after {
             width: 100%;
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .dropdown li {
+            margin: 0;
+            width: 100%;
+        }
+
+        .dropdown li a {
+            color: var(--dark);
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown li:last-child a {
+            border-bottom: none;
+        }
+
+        .dropdown li a:hover {
+            background-color: #f8f9fa;
+            color: var(--primary);
+        }
+
+        nav ul li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
 
         .menu-toggle {
@@ -175,7 +221,7 @@
 
         .section-title h2 {
             font-size: 1.8rem;
-            color: var(--primary);
+            color: #4a00e0;
         }
 
         .section-title::after {
@@ -185,7 +231,7 @@
             left: 0;
             width: 60px;
             height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            background: linear-gradient(to right, #4a00e0, #8e2de2);
             border-radius: 2px;
         }
 
@@ -200,7 +246,7 @@
             background: #f8f9fa;
             border-radius: 8px;
             padding: 1.5rem;
-            border-left: 4px solid var(--primary);
+            border-left: 4px solid #4a00e0;
             transition: var(--transition);
         }
 
@@ -210,7 +256,7 @@
         }
 
         .formula-card h3 {
-            color: var(--primary);
+            color: #4a00e0;
             margin-bottom: 1rem;
             font-size: 1.3rem;
         }
@@ -244,7 +290,7 @@
         }
 
         .shortcut-key {
-            background: var(--primary);
+            background: #4a00e0;
             color: white;
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
@@ -269,6 +315,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
             transition: var(--transition);
             position: relative;
+            cursor: pointer;
         }
 
         .video-card:hover {
@@ -288,6 +335,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            pointer-events: none; /* Prevents right-click menu */
         }
 
         .video-overlay {
@@ -336,7 +384,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             transition: var(--transition);
             opacity: 0;
         }
@@ -352,7 +399,7 @@
 
         .video-play-btn i {
             font-size: 1.5rem;
-            color: var(--primary);
+            color: #4a00e0;
         }
 
         /* Video Modal */
@@ -379,12 +426,15 @@
             width: 100%;
             border-radius: 8px;
             overflow: hidden;
+            position: relative;
         }
 
         .modal-video video {
             width: 100%;
             height: auto;
             display: block;
+            max-height: 80vh;
+            object-fit: contain;
         }
 
         .close-modal {
@@ -396,6 +446,7 @@
             cursor: pointer;
             background: none;
             border: none;
+            z-index: 2001;
         }
 
         .modal-title {
@@ -423,13 +474,13 @@
         }
 
         .filter-btn.active {
-            background: var(--primary);
+            background: #4a00e0;
             color: white;
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
             color: white;
             padding: 3rem 0 1.5rem;
         }
@@ -455,7 +506,7 @@
             left: 0;
             width: 40px;
             height: 3px;
-            background-color: var(--accent);
+            background-color: #ff6b6b;
         }
 
         .footer-column ul {
@@ -507,7 +558,7 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 70px);
-                background: linear-gradient(135deg, var(--primary), var(--secondary));
+                background: linear-gradient(135deg, #4a00e0, #8e2de2);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
@@ -521,6 +572,28 @@
             
             nav ul li {
                 margin: 1rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: rgba(255, 255, 255, 0.1);
+                box-shadow: none;
+                margin-top: 0.5rem;
+                display: none;
+            }
+            
+            .dropdown.active {
+                display: block;
+            }
+            
+            .dropdown li a {
+                color: white;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
             
             .page-header h1 {
@@ -540,6 +613,23 @@
             .video-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .video-container {
+                height: 250px;
+            }
+        }
+
+        /* Prevent video download */
+        .video-container video::-webkit-media-controls-download-button {
+            display: none !important;
+        }
+        
+        .video-container video::-webkit-media-controls-enclosure {
+            overflow: hidden;
+        }
+        
+        .video-container video::-webkit-media-controls-panel {
+            width: calc(100% + 30px);
         }
     </style>
 </head>
@@ -549,8 +639,9 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <span class="logo-icon">💻</span>
-                    <h1>Laxmi Technology</h1>
+                    <!-- Replace with your actual logo path -->
+                    <img src="LOGO.png" alt="Laxmi Technologies" class="logo-img">
+                    <h1>Laxmi Technologies</h1>
                 </div>
                 <button class="menu-toggle" id="menuToggle">☰</button>
                 <nav>
@@ -564,7 +655,7 @@
                                 <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG Services</a></li>
                             </ul>
                         </li>
-                        <li><a href="excel.html">Excel Tutorials</a></li>
+                        <li><a href="excel.html" class="active">Excel Tutorials</a></li>
                         <li><a href="resume.html">Resume Builder</a></li>
                     </ul>
                 </nav>
@@ -746,7 +837,7 @@
         <div class="modal-content">
             <button class="close-modal" id="closeModal">&times;</button>
             <div class="modal-video">
-                <video id="modalVideo" controls>
+                <video id="modalVideo" controls controlsList="nodownload">
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -759,7 +850,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Laxmi Technology</h3>
+                    <h3>Laxmi Technologies</h3>
                     <p>Your trusted partner for digital government services and technological solutions.</p>
                 </div>
                 <div class="footer-column">
@@ -782,7 +873,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 Laxmi Technology. All rights reserved.</p>
+                <p>&copy; 2023 Laxmi Technologies. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -796,6 +887,17 @@
             navMenu.classList.toggle('active');
         });
 
+        // Mobile Dropdown Toggle
+        const onlineServices = document.getElementById('onlineServices');
+        const dropdown = document.querySelector('.dropdown-parent .dropdown');
+        
+        if (window.innerWidth <= 768) {
+            onlineServices.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            });
+        }
+
         // Video Data - Replace with your actual video data
         const videoData = [
             { id: 1, title: "VLOOKUP Formula", category: "formulas", duration: "1:14", src: "VLOOKUP.mp4" },
@@ -804,21 +906,48 @@
             { id: 4, title: "INDEX Explained", category: "formulas", duration: "0:32", src: "INDEX.mp4" },
             { id: 5, title: "COUNTIF Function", category: "formulas", duration: "0:27", src: "26. COUNTIF.mp4" },
             { id: 6, title: "CONCATENATE Formula", category: "formulas", duration: "0:24", src: "14. CONCATENATE.mp4" },
-            { id: 7, title: "Excel Interface Overview", category: "basic", duration: "0:29", src: "videos/interface.mp4" },
-            { id: 8, title: "Data Entry Tips", category: "basic", duration: "0:31", src: "videos/data-entry.mp4" },
-            { id: 9, title: "Cell Formatting", category: "basic", duration: "0:26", src: "videos/cell-formatting.mp4" },
-            { id: 10, title: "Basic Calculations", category: "basic", duration: "0:28", src: "videos/basic-calculations.mp4" },
-            { id: 11, title: "Pivot Tables", category: "data", duration: "0:32", src: "videos/pivot-tables.mp4" },
-            { id: 12, title: "Data Sorting", category: "data", duration: "0:25", src: "videos/data-sorting.mp4" },
-            { id: 13, title: "Data Filtering", category: "data", duration: "0:27", src: "videos/data-filtering.mp4" },
-            { id: 14, title: "Conditional Formatting", category: "data", duration: "0:30", src: "videos/conditional-formatting.mp4" },
-            { id: 15, title: "Creating Bar Charts", category: "charts", duration: "0:29", src: "videos/bar-charts.mp4" },
-            { id: 16, title: "Line Graphs", category: "charts", duration: "0:26", src: "videos/line-graphs.mp4" },
-            { id: 17, title: "Pie Charts", category: "charts", duration: "0:24", src: "videos/pie-charts.mp4" },
-            { id: 18, title: "Advanced Chart Options", category: "charts", duration: "0:31", src: "videos/advanced-charts.mp4" },
-            { id: 19, title: "Macros Introduction", category: "advanced", duration: "0:32", src: "videos/macros.mp4" },
-            { id: 20, title: "Data Validation", category: "advanced", duration: "0:28", src: "videos/data-validation.mp4" },
-            // Add more videos up to 51...
+            { id: 7, title: "ADDITION Formula", category: "basic", duration: "0:29", src: "1. ADDITION.mp4" },
+            { id: 8, title: "MAX Formula", category: "basic", duration: "0:31", src: "11. MAX.mp4" },
+            { id: 9, title: "SUM Formula", category: "basic", duration: "0:26", src: "12. SUM.mp4" },
+            { id: 10, title: "AVERAGE Formula", category: "basic", duration: "0:28", src: "13. AVERAGE.mp4" },
+            { id: 11, title: "LEFT Formula", category: "data", duration: "0:32", src: "15. LEFT.mp4" },
+            { id: 12, title: "LENGTH Formula", category: "data", duration: "0:25", src: "16. LEN.mp4" },
+            { id: 13, title: "LOWER Formula", category: "data", duration: "0:27", src: "17. LOWER.mp4" },
+            { id: 14, title: "PROPER Function", category: "data", duration: "0:30", src: "18. PROPER.mp4" },
+            { id: 15, title: "RIGHT Formula", category: "charts", duration: "0:29", src: "19. RIGHT.mp4" },
+            { id: 16, title: "MULTIPLICATION Formula", category: "charts", duration: "0:26", src: "2. MULTIPLICATION.mp4" },
+            { id: 17, title: "TRIM Formula", category: "charts", duration: "0:24", src: "20. TRIM.mp4" },
+            { id: 18, title: "UPPER Function", category: "charts", duration: "0:31", src: "21. UPPER.mp4" },
+            { id: 19, title: "AND Function", category: "advanced", duration: "0:32", src: "22. AND.mp4" },
+            { id: 20, title: "SWITCH Function", category: "advanced", duration: "0:28", src: "22. SWITCH.mp4" },
+            { id: 21, title: "SUMIFS Function", category: "formulas", duration: "1:14", src: "25. SUMIFS.mp4" },
+            { id: 22, title: "COUNTIFS Function", category: "formulas", duration: "0:28", src: "27. COUNTIFS.mp4" },
+            { id: 23, title: "AVERAGEIF Function", category: "formulas", duration: "0:25", src: "28. AVERAGEIF.mp4" },
+            { id: 24, title: "SUBSTRACTION Formula", category: "formulas", duration: "0:32", src: "3. SUBSTRACTION.mp4" },
+            { id: 25, title: "DIVISION Formula", category: "formulas", duration: "0:27", src: "4. DIVISION.mp4" },
+            { id: 26, title: "COUNTA Formula", category: "formulas", duration: "0:24", src: "5. COUNTA.mp4" },
+            { id: 27, title: "COUNTBLANK Formula", category: "basic", duration: "0:29", src: "6. COUNTBLANK.mp4" },
+            { id: 28, title: "LARGE Formula", category: "basic", duration: "0:31", src: "7. LARGE.mp4" },
+            { id: 29, title: "MINIMUM Formula", category: "basic", duration: "0:26", src: "7. MIN.mp4" },
+            { id: 30, title: "SMALL Function", category: "basic", duration: "0:28", src: "8. SMALL.mp4" },
+            { id: 31, title: "SUMPRODUCT Function", category: "data", duration: "0:32", src: "9. SUMPRODUCT.mp4" },
+            { id: 32, title: "CEILING Function", category: "formulas", duration: "1:14", src: "CEILING.mp4" },
+            { id: 33, title: "DATEDIF Function", category: "formulas", duration: "0:28", src: "DATEDIF.mp4" },
+            { id: 34, title: "FLASH FILL Function", category: "formulas", duration: "0:25", src: "FLASH FILL.mp4" },
+            { id: 35, title: "FLOOR Function", category: "formulas", duration: "0:32", src: "FLOOR.mp4" },
+            { id: 36, title: "HLOOKUP Formula", category: "formulas", duration: "0:27", src: "HLOOKUP.mp4" },
+            { id: 37, title: "MATCH Formula", category: "formulas", duration: "0:24", src: "MATCH.mp4" },
+            { id: 38, title: "NESTED V LOOKUP Formula", category: "basic", duration: "0:29", src: "NESTED V LOOK.mp4" },
+            { id: 39, title: "NETWORKDAYS Function", category: "basic", duration: "0:31", src: "NETWORKDAYS.mp4" },
+            { id: 40, title: "RANK Formula", category: "basic", duration: "0:26", src: "RANK.mp4" },
+            { id: 41, title: "REPT Formula", category: "basic", duration: "0:28", src: "REPT.mp4" },
+            { id: 42, title: "SEQUENCE Formula", category: "data", duration: "0:32", src: "SEQUENCE.mp4" },
+            { id: 43, title: "SORT Function", category: "formulas", duration: "0:27", src: "SORT.mp4" },
+            { id: 44, title: "SUMHLOOKUP Function", category: "formulas", duration: "0:24", src: "SUMHLOOKUP.mp4" },
+            { id: 45, title: "SUMVLOOKUP Function", category: "basic", duration: "0:29", src: "SUMVLOOKUP.mp4" },
+            { id: 46, title: "TRANSPOSE Function", category: "basic", duration: "0:31", src: "TRANSPOSE.mp4" },
+            { id: 47, title: "XLOOKUP Formula", category: "basic", duration: "0:26", src: "XLOOKUP.mp4" },
+            { id: 48, title: "XOR", category: "basic", duration: "0:28", src: "XOR.mp4" },
         ];
 
         // Function to generate video cards
@@ -833,7 +962,7 @@
                 
                 videoCard.innerHTML = `
                     <div class="video-container">
-                        <video>
+                        <video preload="metadata" controlsList="nodownload" disablePictureInPicture>
                             <source src="${video.src}" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -891,6 +1020,14 @@
             modalVideo.pause();
             modalVideo.currentTime = 0;
         }
+
+        // Prevent right-click and download
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName === 'VIDEO') {
+                e.preventDefault();
+                return false;
+            }
+        });
 
         // Initialize page
         document.addEventListener('DOMContentLoaded', () => {

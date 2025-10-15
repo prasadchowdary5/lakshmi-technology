@@ -110,6 +110,48 @@
             width: 100%;
         }
 
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .dropdown li {
+            margin: 0;
+            width: 100%;
+        }
+
+        .dropdown li a {
+            color: var(--dark);
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown li:last-child a {
+            border-bottom: none;
+        }
+
+        .dropdown li a:hover {
+            background-color: #f8f9fa;
+            color: var(--primary);
+        }
+
+        nav ul li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
         .menu-toggle {
             display: none;
             background: none;
@@ -399,6 +441,28 @@
             
             nav ul li {
                 margin: 1rem 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                background: rgba(255, 255, 255, 0.1);
+                box-shadow: none;
+                margin-top: 0.5rem;
+                display: none;
+            }
+            
+            .dropdown.active {
+                display: block;
+            }
+            
+            .dropdown li a {
+                color: white;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             }
             
             .hero h2 {
@@ -419,6 +483,84 @@
         .job-item {
             animation: fadeIn 0.5s ease forwards;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        }
+
+        .modal h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #ddd;
+            color: var(--dark);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -434,8 +576,8 @@
                 <nav>
                     <ul id="navMenu">
                         <li><a href="index.html">Home</a></li>
-                        <li>
-                            <a href="#">Online Services ▾</a>
+                        <li class="dropdown-parent">
+                            <a href="#" id="onlineServices">Online Services ▾</a>
                             <ul class="dropdown">
                                 <li><a href="#" id="panCardService">PAN Card Services</a></li>
                                 <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Card Download</a></li>
@@ -560,29 +702,29 @@
     </footer>
 
     <!-- PAN Card Registration Modal -->
-    <div id="panModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
-        <div style="background: white; padding: 2rem; border-radius: 10px; width: 90%; max-width: 500px; box-shadow: 0 5px 25px rgba(0,0,0,0.2);">
-            <h2 style="color: var(--primary); margin-bottom: 1.5rem; text-align: center;">PAN Card Registration</h2>
+    <div id="panModal" class="modal">
+        <div class="modal-content">
+            <h2>PAN Card Registration</h2>
             <form id="panForm">
-                <div style="margin-bottom: 1rem;">
-                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Full Name</label>
-                    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-                <div style="margin-bottom: 1rem;">
-                    <label for="mobile" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Mobile Number</label>
-                    <input type="tel" id="mobile" name="mobile" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                <div class="form-group">
+                    <label for="mobile">Mobile Number</label>
+                    <input type="tel" id="mobile" name="mobile" required>
                 </div>
-                <div style="margin-bottom: 1rem;">
-                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Address</label>
-                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="address" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Address</label>
-                    <textarea id="address" name="address" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; min-height: 100px;"></textarea>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" required></textarea>
                 </div>
-                <div style="display: flex; gap: 1rem;">
-                    <button type="submit" style="flex: 1; background: var(--primary); color: white; border: none; padding: 0.8rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);">Submit</button>
-                    <button type="button" id="closeModal" style="flex: 1; background: #ddd; color: var(--dark); border: none; padding: 0.8rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);">Cancel</button>
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" id="closeModal" class="btn btn-secondary">Cancel</button>
                 </div>
             </form>
         </div>
@@ -596,6 +738,17 @@
         menuToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
         });
+
+        // Mobile Dropdown Toggle
+        const onlineServices = document.getElementById('onlineServices');
+        const dropdown = document.querySelector('.dropdown-parent .dropdown');
+        
+        if (window.innerWidth <= 768) {
+            onlineServices.addEventListener('click', (e) => {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            });
+        }
 
         // PAN Card Service Modal
         const panServiceCard = document.getElementById('panServiceCard');
@@ -675,4 +828,5 @@
         });
     </script>
 </body>
+</html>
 </html>

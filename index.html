@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -826,7 +826,7 @@
                     <textarea id="address" name="address" required></textarea>
                 </div>
                 <div class="form-buttons">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit & Continue to WhatsApp</button>
                     <button type="button" id="closeModal" class="btn btn-secondary">Cancel</button>
                 </div>
             </form>
@@ -888,12 +888,33 @@
             }
         });
 
-        // Form submission
+        // Form submission - redirect to WhatsApp
         panForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Thank you for your PAN card registration! We will contact you soon.');
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const mobile = document.getElementById('mobile').value;
+            const email = document.getElementById('email').value;
+            const address = document.getElementById('address').value;
+            
+            // Create WhatsApp message
+            const whatsappMessage = `PAN Card Registration Request:%0A%0A*Name:* ${name}%0A*Mobile:* ${mobile}%0A*Email:* ${email}%0A*Address:* ${address}%0A%0A_I would like to apply for a PAN card through Laxmi Technologies._`;
+            
+            // WhatsApp number (replace with your number)
+            const whatsappNumber = "8309957874";
+            
+            // Create WhatsApp URL
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
+            
+            // Close modal
             closePanModal();
+            
+            // Reset form
             panForm.reset();
+            
+            // Redirect to WhatsApp
+            window.open(whatsappUrl, '_blank');
         });
 
         // Job Updates Data (This would typically come from a database)
@@ -1011,3 +1032,4 @@
     </script>
 </body>
 </html>
+

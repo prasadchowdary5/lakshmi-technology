@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laxmi Technologies Excel Formula Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2E86AB;
+            --secondary: #1B6CA8;
+            --accent: #0F4C75;
+            --light: #F5F7FA;
+            --dark: #1A1A2E;
+            --success: #4CAF50;
+            --warning: #FF9800;
+            --danger: #F44336;
+            --text-light: #333;
+            --text-dark: #f5f5f5;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #2D3748;
+            --bg-light: #F5F7FA;
+            --bg-dark: #1A1A2E;
+            --transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            --light: var(--bg-dark);
+            --dark: var(--bg-light);
+            --text-light: var(--text-dark);
+            --text-dark: var(--text-light);
+            --card-bg-light: var(--card-bg-dark);
+            --card-bg-dark: var(--card-bg-light);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light) 0%, #e0e7ff 100%);
+            color: var(--text-light);
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        .dark-mode body {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #0F172A 100%);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            color: white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .mode-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 60px;
+            height: 30px;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+
+        .mode-toggle::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: white;
+            transition: var(--transition);
+            left: 4px;
+        }
+
+        .dark-mode .mode-toggle::before {
+            transform: translateX(30px);
+        }
+
+        /* Navbar Styles */
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 80px;
+            z-index: 99;
+        }
+
+        .dark-mode nav {
+            background: var(--card-bg-dark);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(46, 134, 171, 0.1);
+            color: var(--primary);
+        }
+
+        .dark-mode .nav-links a {
+            color: var(--text-dark);
+        }
+
+        .nav-search {
+            display: flex;
+            align-items: center;
+            background: var(--light);
+            border-radius: 30px;
+            padding: 8px 15px;
+            width: 300px;
+        }
+
+        .dark-mode .nav-search {
+            background: var(--card-bg-dark);
+        }
+
+        .nav-search input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            padding: 5px 10px;
+            color: var(--text-light);
+        }
+
+        .dark-mode .nav-search input {
+            color: var(--text-dark);
+        }
+
+        .nav-search i {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+        }
+
+        .dark-mode .mobile-menu-btn {
+            color: var(--text-dark);
+        }
+
+        /* Main Content */
+        main {
+            padding: 40px 0;
+        }
+
+        .dashboard-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .dashboard-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .dark-mode .dashboard-title p {
+            color: var(--text-dark);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .category-card {
+            background: var(--card-bg-light);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 25px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .category-card {
+            background: var(--card-bg-dark);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .formulas-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .formula-btn {
+            background: rgba(46, 134, 171, 0.1);
+            border: none;
+            border-radius: 20px;
+            padding: 8px 15px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .formula-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--card-bg-light);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .dark-mode .modal-content {
+            background: var(--card-bg-dark);
+        }
+
+        .modal-header {
+            padding: 20px 25px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dark-mode .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .dark-mode .close-modal {
+            color: var(--text-dark);
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+        }
+
+        .modal-body {
+            padding: 25px;
+        }
+
+        .formula-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .section-title {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .syntax-box {
+            background: rgba(46, 134, 171, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .example-box {
+            background: rgba(255, 152, 0, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .calculator-box {
+            background: rgba(76, 175, 80, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--success);
+        }
+
+        .calc-inputs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .calc-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .calc-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .calc-input input, .calc-input select {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            background: var(--card-bg-light);
+            color: var(--text-light);
+        }
+
+        .dark-mode .calc-input input, .dark-mode .calc-input select {
+            background: var(--bg-dark);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-dark);
+        }
+
+        .calc-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary);
+        }
+
+        .btn-secondary {
+            background: rgba(46, 134, 171, 0.1);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(46, 134, 171, 0.2);
+        }
+
+        .calc-result {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(46, 134, 171, 0.1);
+            border-radius: 5px;
+            display: none;
+        }
+
+        .calc-result.show {
+            display: block;
+        }
+
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 99;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .nav-search {
+                width: 250px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-search {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .categories-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .dashboard-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 10px;
+            }
+            
+            .calc-inputs {
+                flex-direction: column;
+            }
+            
+            .calc-input {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-table"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>LAXMI TECHNOLOGIES DASHBOARD</h1>
+                        <p>Formulas & Templates for Easy Learning — Presented by Kommu Naveen</p>
+                    </div>
+                </div>
+                <div class="header-controls">
+                    <button class="mode-toggle" id="modeToggle"></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="container">
+            <div class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-table"></i> Data Formatting</a></li>
+                    <li><a href="#"><i class="fas fa-edit"></i> Editing Data</a></li>
+                    <li><a href="#"><i class="fas fa-file-excel"></i> Adjusting Sheets</a></li>
+                    <li><a href="#"><i class="fas fa-video"></i> Tutorials</a></li>
+                </ul>
+                <div class="nav-search">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search formulas...">
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="dashboard-title">
+                <h2>Excel Formula Dashboard</h2>
+                <p>Explore and learn Excel formulas with interactive examples. Click on any formula to see syntax, examples, and try it yourself.</p>
+            </div>
+
+            <div class="categories-grid" id="categoriesGrid">
+                <!-- Categories will be populated by JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Formula Details -->
+    <div class="modal" id="formulaModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Formula Name</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>Laxmi Technologies provides comprehensive Excel training and resources for professionals and students. Our mission is to make complex Excel formulas easy to understand and apply.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Data Formatting</a></li>
+                        <li><a href="#">Editing Data</a></li>
+                        <li><a href="#">Adjusting Sheets</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Excel Street, Tech City</li>
+                        <li><i class="fas fa-phone"></i> +1 234 567 8900</li>
+                        <li><i class="fas fa-envelope"></i> info@laxmitech.com</li>
+                        <li><i class="fas fa-globe"></i> www.laxmitech.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Laxmi Technologies. All Rights Reserved. | Designed by Kommu Naveen</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Formula data
+        const formulaData = {
+            "Operators": [
+                { name: "ADD", syntax: "=A1+B1", example: "Adds values in A1 and B1" },
+                { name: "SUB", syntax: "=A1-B1", example: "Subtracts B1 from A1" },
+                { name: "MUL", syntax: "=A1*B1", example: "Multiplies A1 by B1" },
+                { name: "DIV", syntax: "=A1/B1", example: "Divides A1 by B1" }
+            ],
+            "Text Functions": [
+                { name: "PROPER", syntax: "=PROPER(text)", example: "Converts text to proper case" },
+                { name: "UPPER", syntax: "=UPPER(text)", example: "Converts text to uppercase" },
+                { name: "LOWER", syntax: "=LOWER(text)", example: "Converts text to lowercase" },
+                { name: "LEN", syntax: "=LEN(text)", example: "Returns the length of text" },
+                { name: "CONCAT", syntax: "=CONCAT(text1, text2, ...)", example: "Concatenates text strings" },
+                { name: "TRIM", syntax: "=TRIM(text)", example: "Removes extra spaces from text" },
+                { name: "SUBSTITUTE", syntax: "=SUBSTITUTE(text, old_text, new_text, [instance_num])", example: "Replaces specific text in a string" },
+                { name: "LEFT", syntax: "=LEFT(text, [num_chars])", example: "Returns leftmost characters from text" },
+                { name: "RIGHT", syntax: "=RIGHT(text, [num_chars])", example: "Returns rightmost characters from text" }
+            ],
+            "Statistics & Math Functions": [
+                { name: "AVERAGE", syntax: "=AVERAGE(number1, [number2], ...)", example: "Returns the average of numbers" },
+                { name: "COUNT", syntax: "=COUNT(value1, [value2], ...)", example: "Counts numbers in a range" },
+                { name: "COUNTA", syntax: "=COUNTA(value1, [value2], ...)", example: "Counts non-empty cells" },
+                { name: "COUNTBLANK", syntax: "=COUNTBLANK(range)", example: "Counts empty cells in a range" },
+                { name: "MIN", syntax: "=MIN(number1, [number2], ...)", example: "Returns the smallest number" },
+                { name: "MAX", syntax: "=MAX(number1, [number2], ...)", example: "Returns the largest number" },
+                { name: "LARGE", syntax: "=LARGE(array, k)", example: "Returns the k-th largest value" },
+                { name: "SMALL", syntax: "=SMALL(array, k)", example: "Returns the k-th smallest value" },
+                { name: "RANK", syntax: "=RANK(number, ref, [order])", example: "Returns the rank of a number" },
+                { name: "SUM", syntax: "=SUM(number1, [number2], ...)", example: "Adds all numbers in a range" },
+                { name: "SUBTOTAL", syntax: "=SUBTOTAL(function_num, ref1, [ref2], ...)", example: "Returns a subtotal in a list or database" },
+                { name: "ROUNDUP", syntax: "=ROUNDUP(number, num_digits)", example: "Rounds a number up" },
+                { name: "CEILING", syntax: "=CEILING(number, significance)", example: "Rounds a number up to nearest multiple" },
+                { name: "FLOOR", syntax: "=FLOOR(number, significance)", example: "Rounds a number down to nearest multiple" },
+                { name: "ODD", syntax: "=ODD(number)", example: "Rounds a number up to the nearest odd integer" },
+                { name: "ABS", syntax: "=ABS(number)", example: "Returns the absolute value of a number" },
+                { name: "ROUND", syntax: "=ROUND(number, num_digits)", example: "Rounds a number to a specified number of digits" }
+            ],
+            "Lookup & Reference Functions": [
+                { name: "LOOKUP", syntax: "=LOOKUP(lookup_value, lookup_vector, [result_vector])", example: "Looks up a value in a vector or array" },
+                { name: "VLOOKUP", syntax: "=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])", example: "Looks up a value in the first column of a table" },
+                { name: "HLOOKUP", syntax: "=HLOOKUP(lookup_value, table_array, row_index_num, [range_lookup])", example: "Looks up a value in the first row of a table" },
+                { name: "XLOOKUP", syntax: "=XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])", example: "Searches a range or array for a match" },
+                { name: "INDEX", syntax: "=INDEX(array, row_num, [column_num])", example: "Returns a value from a specified position in a range" },
+                { name: "MATCH", syntax: "=MATCH(lookup_value, lookup_array, [match_type])", example: "Returns the position of a value in a range" },
+                { name: "INDEX+MATCH", syntax: "=INDEX(return_range, MATCH(lookup_value, lookup_range, 0))", example: "Combines INDEX and MATCH for flexible lookups" },
+                { name: "CHOOSE", syntax: "=CHOOSE(index_num, value1, [value2], ...)", example: "Chooses a value from a list of values" }
+            ],
+            "Array & Dynamic Functions": [
+                { name: "SEQUENCE", syntax: "=SEQUENCE(rows, [columns], [start], [step])", example: "Generates a list of sequential numbers" },
+                { name: "FILTER", syntax: "=FILTER(array, include, [if_empty])", example: "Filters a range of data based on criteria" },
+                { name: "TRANSPOSE", syntax: "=TRANSPOSE(array)", example: "Transposes the rows and columns of an array" },
+                { name: "SORT", syntax: "=SORT(array, [sort_index], [sort_order], [by_col])", example: "Sorts the contents of a range or array" },
+                { name: "HYPERLINK", syntax: "=HYPERLINK(link_location, [friendly_name])", example: "Creates a shortcut to a document or web page" },
+                { name: "RANDBETWEEN", syntax: "=RANDBETWEEN(bottom, top)", example: "Returns a random number between two values" },
+                { name: "REPT", syntax: "=REPT(text, number_times)", example: "Repeats text a given number of times" }
+            ],
+            "Logical Functions": [
+                { name: "IF", syntax: "=IF(logical_test, value_if_true, value_if_false)", example: "Returns one value if condition is true, another if false" },
+                { name: "AND", syntax: "=AND(logical1, [logical2], ...)", example: "Returns TRUE if all arguments are TRUE" },
+                { name: "OR", syntax: "=OR(logical1, [logical2], ...)", example: "Returns TRUE if any argument is TRUE" },
+                { name: "NOT", syntax: "=NOT(logical)", example: "Reverses the logic of its argument" },
+                { name: "IFS", syntax: "=IFS(logical_test1, value_if_true1, [logical_test2, value_if_true2], ...)", example: "Checks multiple conditions and returns a value" },
+                { name: "NESTED IF", syntax: "=IF(condition1, result1, IF(condition2, result2, result3))", example: "Uses multiple IF functions together" },
+                { name: "IFNA", syntax: "=IFNA(value, value_if_na)", example: "Returns a value you specify if a formula returns #N/A" },
+                { name: "IFERROR", syntax: "=IFERROR(value, value_if_error)", example: "Returns a value you specify if a formula results in an error" },
+                { name: "SWITCH", syntax: "=SWITCH(expression, value1, result1, [default_or_value2, result2], ...)", example: "Evaluates an expression against a list of values" },
+                { name: "XOR", syntax: "=XOR(logical1, [logical2], ...)", example: "Returns a logical exclusive OR of all arguments" }
+            ],
+            "Date Functions": [
+                { name: "TODAY", syntax: "=TODAY()", example: "Returns the current date" },
+                { name: "NOW", syntax: "=NOW()", example: "Returns the current date and time" },
+                { name: "NETWORKDAYS", syntax: "=NETWORKDAYS(start_date, end_date, [holidays])", example: "Returns the number of whole workdays between two dates" },
+                { name: "DATEDIF", syntax: "=DATEDIF(start_date, end_date, unit)", example: "Calculates the difference between two dates" }
+            ],
+            "Financial Functions": [
+                { name: "PMT", syntax: "=PMT(rate, nper, pv, [fv], [type])", example: "Calculates the payment for a loan" },
+                { name: "FV", syntax: "=FV(rate, nper, pmt, [pv], [type])", example: "Returns the future value of an investment" },
+                { name: "IPMT", syntax: "=IPMT(rate, per, nper, pv, [fv], [type])", example: "Returns the interest payment for a given period" }
+            ],
+            "Conditional Formulas": [
+                { name: "COUNTIF", syntax: "=COUNTIF(range, criteria)", example: "Counts cells that meet a single condition" },
+                { name: "COUNTIFS", syntax: "=COUNTIFS(criteria_range1, criteria1, [criteria_range2, criteria2], ...)", example: "Counts cells that meet multiple conditions" },
+                { name: "SUMIF", syntax: "=SUMIF(range, criteria, [sum_range])", example: "Adds cells that meet a single condition" },
+                { name: "SUMIFS", syntax: "=SUMIFS(sum_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)", example: "Adds cells that meet multiple conditions" },
+                { name: "AVERAGEIF", syntax: "=AVERAGEIF(range, criteria, [average_range])", example: "Returns the average of cells that meet a condition" },
+                { name: "AVERAGEIFS", syntax: "=AVERAGEIFS(average_range, criteria_range1, criteria1, [criteria_range2, criteria2], ...)", example: "Returns the average of cells that meet multiple conditions" }
+            ],
+            "Combination Formulas": [
+                { name: "SUM+FILTER", syntax: "=SUM(FILTER(array, condition))", example: "Sums filtered results based on criteria" },
+                { name: "SUM+VLOOKUP", syntax: "=SUM(VLOOKUP(lookup_value, table_array, col_index_num, FALSE))", example: "Sums values retrieved by VLOOKUP" },
+                { name: "SUM+HLOOKUP", syntax: "=SUM(HLOOKUP(lookup_value, table_array, row_index_num, FALSE))", example: "Sums values retrieved by HLOOKUP" }
+            ],
+            "Pivot, Fiadsal, and Advanced Level Topics": [
+                { name: "FILTER", syntax: "=FILTER(array, include, [if_empty])", example: "Filters a range of data based on criteria" },
+                { name: "ADV FILTER", syntax: "Advanced Filter (Data tab)", example: "Filters data using complex criteria" },
+                { name: "SLICER", syntax: "Insert > Slicer", example: "Visual filter for PivotTables and PivotCharts" },
+                { name: "CONS", syntax: "Not a standard Excel function", example: "Consult advanced Excel resources" },
+                { name: "GOAL SEEK", syntax: "Data > What-If Analysis > Goal Seek", example: "Finds input value needed for desired formula result" },
+                { name: "FLASH FILL", syntax: "Data > Flash Fill or Ctrl+E", example: "Automatically fills data based on pattern" },
+                { name: "REMOVE DUP", syntax: "Data > Remove Duplicates", example: "Removes duplicate values from a range" }
+            ],
+            "Alternate Projects": [
+                { name: "PAYSLIP", syntax: "Custom template with formulas", example: "Creates employee payslips with calculations" },
+                { name: "ATTENDANCE", syntax: "Custom template with formulas", example: "Tracks employee attendance and calculates totals" },
+                { name: "SALES REPORT", syntax: "Custom template with formulas", example: "Generates sales reports with summaries" },
+                { name: "EMI", syntax: "=PMT(rate/12, nper*12, -pv)", example: "Calculates Equated Monthly Installment for a loan" }
+            ]
+        };
+
+        // Category icons and colors
+        const categoryStyles = {
+            "Operators": { icon: "fas fa-plus-circle", color: "#4CAF50" },
+            "Text Functions": { icon: "fas fa-font", color: "#2196F3" },
+            "Statistics & Math Functions": { icon: "fas fa-chart-bar", color: "#FF9800" },
+            "Lookup & Reference Functions": { icon: "fas fa-search", color: "#9C27B0" },
+            "Array & Dynamic Functions": { icon: "fas fa-layer-group", color: "#F44336" },
+            "Logical Functions": { icon: "fas fa-code-branch", color: "#607D8B" },
+            "Date Functions": { icon: "fas fa-calendar-alt", color: "#795548" },
+            "Financial Functions": { icon: "fas fa-dollar-sign", color: "#4CAF50" },
+            "Conditional Formulas": { icon: "fas fa-filter", color: "#2196F3" },
+            "Combination Formulas": { icon: "fas fa-puzzle-piece", color: "#FF9800" },
+            "Pivot, Fiadsal, and Advanced Level Topics": { icon: "fas fa-cogs", color: "#9C27B0" },
+            "Alternate Projects": { icon: "fas fa-project-diagram", color: "#F44336" }
+        };
+
+        // DOM Elements
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        const formulaModal = document.getElementById('formulaModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.getElementById('closeModal');
+        const modeToggle = document.getElementById('modeToggle');
+        const searchInput = document.getElementById('searchInput');
+        const backToTop = document.getElementById('backToTop');
+
+        // Initialize the dashboard
+        function initDashboard() {
+            renderCategories();
+            setupEventListeners();
+            checkDarkModePreference();
+        }
+
+        // Render categories and formulas
+        function renderCategories() {
+            categoriesGrid.innerHTML = '';
+            
+            for (const [category, formulas] of Object.entries(formulaData)) {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                
+                const style = categoryStyles[category] || { icon: "fas fa-question-circle", color: "#607D8B" };
+                
+                categoryCard.innerHTML = `
+                    <div class="category-header">
+                        <div class="category-icon" style="background: ${style.color}">
+                            <i class="${style.icon}"></i>
+                        </div>
+                        <h3 class="category-title">${category}</h3>
+                    </div>
+                    <div class="formulas-list">
+                        ${formulas.map(formula => 
+                            `<button class="formula-btn" data-category="${category}" data-formula="${formula.name}">${formula.name}</button>`
+                        ).join('')}
+                    </div>
+                `;
+                
+                categoriesGrid.appendChild(categoryCard);
+            }
+            
+            // Add event listeners to formula buttons
+            document.querySelectorAll('.formula-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const category = this.getAttribute('data-category');
+                    const formulaName = this.getAttribute('data-formula');
+                    openFormulaModal(category, formulaName);
+                });
+            });
+        }
+
+        // Open formula modal with details
+        function openFormulaModal(category, formulaName) {
+            const formula = formulaData[category].find(f => f.name === formulaName);
+            if (!formula) return;
+            
+            modalTitle.textContent = formula.name;
+            
+            modalBody.innerHTML = `
+                <div class="formula-section">
+                    <h4 class="section-title">Syntax</h4>
+                    <div class="syntax-box">
+                        <code>${formula.syntax}</code>
+                    </div>
+                </div>
+                
+                <div class="formula-section">
+                    <h4 class="section-title">Example</h4>
+                    <div class="example-box">
+                        <p>${formula.example}</p>
+                    </div>
+                </div>
+                
+                <div class="formula-section">
+                    <h4 class="section-title">Try It Yourself</h4>
+                    <div class="calculator-box">
+                        <div class="calc-inputs" id="calcInputs">
+                            <!-- Inputs will be generated based on formula -->
+                        </div>
+                        <div class="calc-actions">
+                            <button class="btn btn-primary" id="calculateBtn">
+                                <i class="fas fa-calculator"></i> Calculate
+                            </button>
+                            <button class="btn btn-secondary" id="copyFormulaBtn">
+                                <i class="fas fa-copy"></i> Copy Formula
+                            </button>
+                        </div>
+                        <div class="calc-result" id="calcResult">
+                            <strong>Result:</strong> <span id="resultValue"></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Generate inputs based on formula
+            generateCalculatorInputs(formula);
+            
+            // Add event listeners to calculator buttons
+            document.getElementById('calculateBtn').addEventListener('click', function() {
+                calculateFormula(formula);
+            });
+            
+            document.getElementById('copyFormulaBtn').addEventListener('click', function() {
+                copyToClipboard(formula.syntax);
+                alert(`Formula "${formula.syntax}" copied to clipboard!`);
+            });
+            
+            // Show modal
+            formulaModal.style.display = 'flex';
+        }
+
+        // Generate calculator inputs based on formula
+        function generateCalculatorInputs(formula) {
+            const calcInputs = document.getElementById('calcInputs');
+            calcInputs.innerHTML = '';
+            
+            // Simple input generation based on formula name
+            if (formula.name === 'SUM') {
+                calcInputs.innerHTML = `
+                    <div class="calc-input">
+                        <label for="num1">Number 1</label>
+                        <input type="number" id="num1" value="10">
+                    </div>
+                    <div class="calc-input">
+                        <label for="num2">Number 2</label>
+                        <input type="number" id="num2" value="5">
+                    </div>
+                    <div class="calc-input">
+                        <label for="num3">Number 3 (Optional)</label>
+                        <input type="number" id="num3" value="">
+                    </div>
+                `;
+            } else if (formula.name === 'AVERAGE') {
+                calcInputs.innerHTML = `
+                    <div class="calc-input">
+                        <label for="num1">Number 1</label>
+                        <input type="number" id="num1" value="10">
+                    </div>
+                    <div class="calc-input">
+                        <label for="num2">Number 2</label>
+                        <input type="number" id="num2" value="20">
+                    </div>
+                    <div class="calc-input">
+                        <label for="num3">Number 3</label>
+                        <input type="number" id="num3" value="30">
+                    </div>
+                `;
+            } else if (formula.name === 'IF') {
+                calcInputs.innerHTML = `
+                    <div class="calc-input">
+                        <label for="condition">Condition (e.g., A1>B1)</label>
+                        <input type="text" id="condition" value="A1>B1">
+                    </div>
+                    <div class="calc-input">
+                        <label for="valueIfTrue">Value if True</label>
+                        <input type="text" id="valueIfTrue" value="Yes">
+                    </div>
+                    <div class="calc-input">
+                        <label for="valueIfFalse">Value if False</label>
+                        <input type="text" id="valueIfFalse" value="No">
+                    </div>
+                    <div class="calc-input">
+                        <label for="aValue">Value for A1</label>
+                        <input type="number" id="aValue" value="10">
+                    </div>
+                    <div class="calc-input">
+                        <label for="bValue">Value for B1</label>
+                        <input type="number" id="bValue" value="5">
+                    </div>
+                `;
+            } else {
+                // Default input for other formulas
+                calcInputs.innerHTML = `
+                    <div class="calc-input">
+                        <label for="input1">Input 1</label>
+                        <input type="text" id="input1" placeholder="Enter value">
+                    </div>
+                    <div class="calc-input">
+                        <label for="input2">Input 2 (if needed)</label>
+                        <input type="text" id="input2" placeholder="Enter value">
+                    </div>
+                `;
+            }
+        }
+
+        // Calculate formula result
+        function calculateFormula(formula) {
+            const resultDiv = document.getElementById('calcResult');
+            const resultValue = document.getElementById('resultValue');
+            
+            try {
+                let result;
+                
+                if (formula.name === 'SUM') {
+                    const num1 = parseFloat(document.getElementById('num1').value) || 0;
+                    const num2 = parseFloat(document.getElementById('num2').value) || 0;
+                    const num3 = parseFloat(document.getElementById('num3').value) || 0;
+                    result = num1 + num2 + num3;
+                } else if (formula.name === 'AVERAGE') {
+                    const num1 = parseFloat(document.getElementById('num1').value) || 0;
+                    const num2 = parseFloat(document.getElementById('num2').value) || 0;
+                    const num3 = parseFloat(document.getElementById('num3').value) || 0;
+                    result = (num1 + num2 + num3) / 3;
+                } else if (formula.name === 'IF') {
+                    const condition = document.getElementById('condition').value;
+                    const valueIfTrue = document.getElementById('valueIfTrue').value;
+                    const valueIfFalse = document.getElementById('valueIfFalse').value;
+                    const aValue = parseFloat(document.getElementById('aValue').value) || 0;
+                    const bValue = parseFloat(document.getElementById('bValue').value) || 0;
+                    
+                    // Simple condition evaluation
+                    let conditionResult = false;
+                    if (condition.includes('>')) {
+                        const parts = condition.split('>');
+                        const left = parts[0].trim() === 'A1' ? aValue : bValue;
+                        const right = parts[1].trim() === 'A1' ? aValue : bValue;
+                        conditionResult = left > right;
+                    } else if (condition.includes('<')) {
+                        const parts = condition.split('<');
+                        const left = parts[0].trim() === 'A1' ? aValue : bValue;
+                        const right = parts[1].trim() === 'A1' ? aValue : bValue;
+                        conditionResult = left < right;
+                    } else if (condition.includes('=')) {
+                        const parts = condition.split('=');
+                        const left = parts[0].trim() === 'A1' ? aValue : bValue;
+                        const right = parts[1].trim() === 'A1' ? aValue : bValue;
+                        conditionResult = left === right;
+                    }
+                    
+                    result = conditionResult ? valueIfTrue : valueIfFalse;
+                } else {
+                    result = "Calculation not implemented for this formula yet.";
+                }
+                
+                resultValue.textContent = result;
+                resultDiv.classList.add('show');
+            } catch (error) {
+                resultValue.textContent = "Error in calculation: " + error.message;
+                resultDiv.classList.add('show');
+            }
+        }
+
+        // Copy text to clipboard
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                formulaModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                if (event.target === formulaModal) {
+                    formulaModal.style.display = 'none';
+                }
+            });
+            
+            // Dark mode toggle
+            modeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            });
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                document.querySelectorAll('.category-card').forEach(card => {
+                    const formulas = card.querySelectorAll('.formula-btn');
+                    let hasMatch = false;
+                    
+                    formulas.forEach(button => {
+                        const formulaName = button.textContent.toLowerCase();
+                        if (formulaName.includes(searchTerm)) {
+                            button.style.display = 'inline-block';
+                            hasMatch = true;
+                        } else {
+                            button.style.display = 'none';
+                        }
+                    });
+                    
+                    // Show/hide category based on matches
+                    card.style.display = hasMatch ? 'block' : 'none';
+                });
+            });
+            
+            // Back to top button
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.add('show');
+                } else {
+                    backToTop.classList.remove('show');
+                }
+            });
+            
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // Mobile menu toggle
+            document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.toggle('show');
+            });
+        }
+
+        // Check for dark mode preference
+        function checkDarkModePreference() {
+            const isDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (isDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // Initialize the dashboard when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

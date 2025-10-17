@@ -3,898 +3,1741 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Builder - Laxmi Technologies</title>
+    <title>Professional Resume Builder | 12 Format Styles</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        /* CSS Variables for consistent theming */
         :root {
-            --primary: #4a00e0;
-            --secondary: #8e2de2;
-            --accent: #ff6b6b;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --success: #28a745;
-            --warning: #ffc107;
-            --info: #17a2b8;
-            --transition: all 0.3s ease;
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
         }
-
-        /* Global Styles */
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background-color: #f5f5f5;
-            color: var(--dark);
+            background-color: #f5f7fa;
+            color: #333;
             line-height: 1.6;
         }
-
+        
         .container {
-            width: 90%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 20px;
         }
-
-        /* Header Styles */
+        
         header {
-            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            padding: 1rem 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            padding: 2rem 0;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
         }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
         }
-
-        .logo-img {
-            height: 50px;
-            width: auto;
+        
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
         }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #ff6b6b, #ff8e53);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* Navigation Styles */
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 1.5rem;
-            position: relative;
-        }
-
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 0;
-            transition: var(--transition);
-            display: block;
-        }
-
-        nav ul li a:hover {
-            color: #ff6b6b;
-        }
-
-        nav ul li a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #ff6b6b;
-            transition: var(--transition);
-        }
-
-        nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        /* Dropdown Menu */
-        .dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
+        
+        .format-card {
             background: white;
-            min-width: 200px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: var(--transition);
-            z-index: 100;
-        }
-
-        .dropdown li {
-            margin: 0;
-            width: 100%;
-        }
-
-        .dropdown li a {
-            color: var(--dark);
-            padding: 0.8rem 1rem;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .dropdown li:last-child a {
-            border-bottom: none;
-        }
-
-        .dropdown li a:hover {
-            background-color: #f8f9fa;
-            color: var(--primary);
-        }
-
-        nav ul li:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
             cursor: pointer;
         }
-
-        /* Page Header */
-        .page-header {
-            background: linear-gradient(rgba(74, 0, 224, 0.9), rgba(142, 45, 226, 0.9)), url('https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 4rem 0;
+        
+        .format-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .format-card.active {
+            border: 3px solid var(--secondary);
+        }
+        
+        .format-preview {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+        }
+        
+        .format-name {
+            padding: 15px;
             text-align: center;
-            margin-bottom: 3rem;
+            font-weight: 600;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
         }
-
-        .page-header h1 {
-            font-size: 2.8rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin: 30px 0;
         }
-
-        .page-header p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        /* Resume Builder */
-        .resume-builder {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
+        
         .form-section {
+            flex: 1;
+            min-width: 350px;
             background: white;
+            padding: 25px;
             border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            max-height: 85vh;
+            overflow-y: auto;
         }
-
+        
         .preview-section {
+            flex: 2;
+            min-width: 350px;
             background: white;
+            padding: 25px;
             border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            position: sticky;
-            top: 100px;
-            height: fit-content;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
         }
-
+        
         .section-title {
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light);
         }
-
-        .section-title h2 {
-            font-size: 1.8rem;
-            color: #4a00e0;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(to right, #4a00e0, #8e2de2);
-            border-radius: 2px;
-        }
-
+        
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 20px;
         }
-
-        .form-group label {
+        
+        label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 8px;
             font-weight: 600;
             color: var(--dark);
         }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        
+        input, textarea, select {
             width: 100%;
-            padding: 0.8rem;
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 1rem;
-            transition: var(--transition);
+            transition: border 0.3s;
         }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--secondary);
             outline: none;
-            border-color: #4a00e0;
-            box-shadow: 0 0 0 3px rgba(74, 0, 224, 0.1);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
         }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
         }
-
-        .btn {
-            display: inline-block;
-            background: #4a00e0;
+        
+        .photo-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .photo-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 3px solid var(--secondary);
+        }
+        
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .photo-placeholder {
+            color: #777;
+            text-align: center;
+        }
+        
+        .photo-upload-btn {
+            background-color: var(--secondary);
             color: white;
             border: none;
-            padding: 0.8rem 1.5rem;
+            padding: 10px 20px;
             border-radius: 5px;
-            font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .btn:hover {
-            background: #8e2de2;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        .btn-accent {
-            background: #ff6b6b;
-        }
-
-        .btn-accent:hover {
-            background: #ff5252;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        /* Resume Preview */
-        .resume-preview {
-            background: white;
-            border: 1px solid #e9ecef;
-            min-height: 800px;
-            padding: 2rem;
-            font-family: 'Georgia', serif;
-        }
-
-        .resume-header {
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #4a00e0;
-        }
-
-        .resume-header h2 {
-            font-size: 2rem;
-            color: #4a00e0;
-            margin-bottom: 0.5rem;
-        }
-
-        .resume-header p {
-            color: #666;
-        }
-
-        .resume-section {
-            margin-bottom: 1.5rem;
-        }
-
-        .resume-section h3 {
-            font-size: 1.3rem;
-            color: #4a00e0;
-            margin-bottom: 0.8rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.3rem;
-        }
-
-        .resume-item {
-            margin-bottom: 1rem;
-        }
-
-        .resume-item h4 {
             font-weight: 600;
-            margin-bottom: 0.3rem;
+            transition: background 0.3s;
         }
-
-        .resume-item .date {
-            color: #666;
-            font-style: italic;
-            margin-bottom: 0.3rem;
+        
+        .photo-upload-btn:hover {
+            background-color: #2980b9;
         }
-
-        .skills-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .skill-tag {
-            background: #e9ecef;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+        
+        .btn {
+            background-color: var(--secondary);
             color: white;
-            padding: 3rem 0 1.5rem;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
+        
+        .btn:hover {
+            background-color: #2980b9;
         }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
+        
+        .btn-download {
+            background-color: var(--success);
+            margin-top: 20px;
+            width: 100%;
+        }
+        
+        .btn-download:hover {
+            background-color: #219653;
+        }
+        
+        /* A4 Paper Size Styling */
+        .a4-paper {
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             position: relative;
-            display: inline-block;
         }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background-color: #ff6b6b;
+        
+        .resume-content {
+            padding: 15mm;
+            color: #000;
+            font-size: 11pt;
+            line-height: 1.4;
         }
-
-        .footer-column ul {
-            list-style: none;
+        
+        /* Resume Format Styles */
+        
+        /* Format 1: Professional Blue */
+        .format1 .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12pt;
+            padding-bottom: 10pt;
+            border-bottom: 1.5pt solid #3498db;
         }
-
-        .footer-column ul li {
-            margin-bottom: 0.8rem;
+        
+        .format1 .resume-name {
+            font-size: 18pt;
+            color: #2c3e50;
+            margin-bottom: 3pt;
+            font-weight: bold;
         }
-
-        .footer-column ul li a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
+        
+        .format1 .resume-section-title {
+            font-size: 13pt;
+            color: #2c3e50;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #eee;
+            font-weight: bold;
         }
-
-        .footer-column ul li a:hover {
+        
+        /* Format 2: Modern Green */
+        .format2 .resume-header {
+            background: linear-gradient(135deg, #16a085, #1abc9c);
             color: white;
-            padding-left: 5px;
+            padding: 15pt;
+            margin-bottom: 12pt;
+            border-radius: 5pt;
         }
-
-        .copyright {
+        
+        .format2 .resume-name {
+            font-size: 18pt;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format2 .resume-section-title {
+            font-size: 13pt;
+            color: #16a085;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #eee;
+            font-weight: bold;
+        }
+        
+        /* Format 3: Creative Purple */
+        .format3 .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12pt;
+            padding-bottom: 10pt;
+            border-bottom: 2pt solid #9b59b6;
+        }
+        
+        .format3 .resume-name {
+            font-size: 20pt;
+            color: #8e44ad;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format3 .resume-section-title {
+            font-size: 14pt;
+            color: #8e44ad;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 2pt solid #9b59b6;
+            font-weight: bold;
+        }
+        
+        /* Format 4: Elegant Navy */
+        .format4 .resume-header {
+            background: #2c3e50;
+            color: white;
+            padding: 15pt;
+            margin-bottom: 12pt;
+        }
+        
+        .format4 .resume-name {
+            font-size: 18pt;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format4 .resume-section-title {
+            font-size: 13pt;
+            color: #2c3e50;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #2c3e50;
+            font-weight: bold;
+        }
+        
+        /* Format 5: Minimalist Gray */
+        .format5 .resume-header {
             text-align: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 12pt;
+            padding-bottom: 10pt;
+            border-bottom: 1pt solid #bdc3c7;
+        }
+        
+        .format5 .resume-name {
+            font-size: 18pt;
+            color: #2c3e50;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format5 .resume-section-title {
+            font-size: 13pt;
+            color: #7f8c8d;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #bdc3c7;
+            font-weight: bold;
+        }
+        
+        /* Format 6: Corporate Red */
+        .format6 .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12pt;
+            padding-bottom: 10pt;
+            border-bottom: 1.5pt solid #e74c3c;
+        }
+        
+        .format6 .resume-name {
+            font-size: 18pt;
+            color: #c0392b;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format6 .resume-section-title {
+            font-size: 13pt;
+            color: #c0392b;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #eee;
+            font-weight: bold;
+        }
+        
+        /* Format 7: Tech Blue */
+        .format7 .resume-header {
+            background: #34495e;
+            color: white;
+            padding: 15pt;
+            margin-bottom: 12pt;
+        }
+        
+        .format7 .resume-name {
+            font-size: 18pt;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format7 .resume-section-title {
+            font-size: 13pt;
+            color: #34495e;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #34495e;
+            font-weight: bold;
+        }
+        
+        /* Format 8: Fresh Green */
+        .format8 .resume-header {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            padding: 15pt;
+            margin-bottom: 12pt;
+            border-radius: 5pt;
+        }
+        
+        .format8 .resume-name {
+            font-size: 18pt;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format8 .resume-section-title {
+            font-size: 13pt;
+            color: #27ae60;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #eee;
+            font-weight: bold;
+        }
+        
+        /* Format 9: Warm Orange */
+        .format9 .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12pt;
+            padding-bottom: 10pt;
+            border-bottom: 1.5pt solid #e67e22;
+        }
+        
+        .format9 .resume-name {
+            font-size: 18pt;
+            color: #d35400;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format9 .resume-section-title {
+            font-size: 13pt;
+            color: #d35400;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #eee;
+            font-weight: bold;
+        }
+        
+        /* Format 10: Cool Cyan */
+        .format10 .resume-header {
+            background: linear-gradient(135deg, #0984e3, #00cec9);
+            color: white;
+            padding: 15pt;
+            margin-bottom: 12pt;
+            border-radius: 5pt;
+        }
+        
+        .format10 .resume-name {
+            font-size: 18pt;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format10 .resume-section-title {
+            font-size: 13pt;
+            color: #0984e3;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #eee;
+            font-weight: bold;
+        }
+        
+        /* Format 11: Classic Brown */
+        .format11 .resume-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12pt;
+            padding-bottom: 10pt;
+            border-bottom: 1.5pt solid #a55c2f;
+        }
+        
+        .format11 .resume-name {
+            font-size: 18pt;
+            color: #7e5109;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format11 .resume-section-title {
+            font-size: 13pt;
+            color: #7e5109;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #eee;
+            font-weight: bold;
+        }
+        
+        /* Format 12: Bold Pink */
+        .format12 .resume-header {
+            background: linear-gradient(135deg, #e84393, #fd79a8);
+            color: white;
+            padding: 15pt;
+            margin-bottom: 12pt;
+            border-radius: 5pt;
+        }
+        
+        .format12 .resume-name {
+            font-size: 18pt;
+            margin-bottom: 3pt;
+            font-weight: bold;
+        }
+        
+        .format12 .resume-section-title {
+            font-size: 13pt;
+            color: #e84393;
+            margin-bottom: 6pt;
+            padding-bottom: 3pt;
+            border-bottom: 1pt solid #eee;
+            font-weight: bold;
+        }
+        
+        /* Common Resume Styles */
+        .resume-photo {
+            width: 80pt;
+            height: 80pt;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5pt solid var(--secondary);
+        }
+        
+        .resume-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .resume-info {
+            flex: 1;
+            padding: 0 15pt;
+        }
+        
+        .resume-contact {
+            text-align: left;
+            font-size: 9pt;
+        }
+        
+        .resume-section {
+            margin-bottom: 12pt;
+        }
+        
+        .personal-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8pt;
+        }
+        
+        .personal-detail-item {
+            display: flex;
+            margin-bottom: 5pt;
+        }
+        
+        .personal-detail-label {
+            font-weight: 600;
+            min-width: 110pt;
+        }
+        
+        .personal-detail-value {
+            flex: 1;
+        }
+        
+        .experience-item, .education-item, .achievement-item, .project-item {
+            margin-bottom: 10pt;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2pt;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .item-date {
+            color: #777;
+            font-style: italic;
+            font-size: 9pt;
+        }
+        
+        .item-subtitle {
+            color: var(--secondary);
+            margin-bottom: 2pt;
+            font-size: 10pt;
+        }
+        
+        .skills-list, .strengths-list, .achievements-list, .projects-list {
+            list-style-type: disc;
+            padding-left: 20pt;
+            margin-top: 4pt;
+        }
+        
+        .skills-list li, .strengths-list li, .achievements-list li, .projects-list li {
+            margin-bottom: 3pt;
+            font-size: 10pt;
+        }
+        
+        .declaration {
+            margin-top: 15pt;
+            padding-top: 10pt;
+            border-top: 1pt solid #eee;
+        }
+        
+        .declaration-title {
+            font-weight: 600;
+            margin-bottom: 6pt;
+        }
+        
+        .signature-area {
+            margin-top: 20pt;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .signature-line {
+            border-top: 1pt solid #000;
+            width: 150pt;
+            margin-top: 30pt;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #777;
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.7);
+            border-top: 1px solid #eee;
+            margin-top: 30px;
         }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .resume-builder {
-                grid-template-columns: 1fr;
-            }
-            
-            .preview-section {
-                position: static;
-            }
+        
+        .form-section-group {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
         }
-
+        
+        .add-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+        
+        .optional-label {
+            color: #777;
+            font-weight: normal;
+            font-size: 0.9rem;
+            margin-left: 5px;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+        
+        .objective-options {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .objective-option {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .objective-option:hover {
+            background-color: #f0f8ff;
+        }
+        
+        .objective-option.selected {
+            background-color: #e1f0fa;
+            border-left: 3px solid var(--secondary);
+        }
+        
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            
-            nav ul {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 70px);
-                background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            .main-content {
                 flex-direction: column;
-                align-items: center;
-                justify-content: flex-start;
-                padding-top: 2rem;
-                transition: var(--transition);
             }
             
-            nav ul.active {
-                left: 0;
-            }
-            
-            nav ul li {
-                margin: 1rem 0;
-                width: 100%;
+            .resume-header {
+                flex-direction: column;
                 text-align: center;
             }
             
-            .dropdown {
-                position: static;
-                opacity: 1;
-                visibility: visible;
-                transform: none;
-                background: rgba(255, 255, 255, 0.1);
-                box-shadow: none;
-                margin-top: 0.5rem;
-                display: none;
+            .resume-info {
+                padding: 10pt 0 0 0;
             }
             
-            .dropdown.active {
-                display: block;
+            .resume-contact {
+                text-align: center;
             }
             
-            .dropdown li a {
-                color: white;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            
-            .page-header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .page-header p {
-                font-size: 1rem;
-            }
-            
-            .form-row {
+            .personal-details-grid {
                 grid-template-columns: 1fr;
             }
             
-            .action-buttons {
-                flex-direction: column;
+            .a4-paper {
+                width: 100%;
+                min-height: auto;
+            }
+            
+            .dashboard {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        /* Print-specific styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .a4-paper, .a4-paper * {
+                visibility: visible;
+            }
+            .a4-paper {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 210mm;
+                min-height: 297mm;
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <!-- Replace with your actual logo path -->
-                    <img src="LOGO.png" alt="Laxmi Technologies" class="logo-img">
-                    <h1>Laxmi Technologies</h1>
-                </div>
-                <button class="menu-toggle" id="menuToggle">☰</button>
-                <nav>
-                    <ul id="navMenu">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="dropdown-parent">
-                            <a href="#" id="onlineServices">Online Services ▾</a>
-                            <ul class="dropdown">
-                                <li><a href="#" id="panCardService">PAN Card Services</a></li>
-                                <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Card Download</a></li>
-                                <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG Services</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="excel.html">Excel Tutorials</a></li>
-                        <li><a href="resume.html" class="active">Resume Builder</a></li>
-                    </ul>
-                </nav>
-            </div>
+            <h1>Professional Resume Builder</h1>
+            <p class="subtitle">Choose from 12 professional resume formats</p>
         </div>
     </header>
-
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="container">
-            <h1>Professional Resume Builder</h1>
-            <p>Create, edit, and download your professional resume in minutes</p>
-        </div>
-    </section>
-
-    <!-- Resume Builder -->
+    
     <div class="container">
-        <div class="resume-builder">
-            <!-- Form Section -->
-            <div class="form-section">
-                <div class="section-title">
-                    <h2>Personal Information</h2>
+        <h2 class="section-title">Select a Resume Format</h2>
+        <div class="dashboard" id="formatDashboard">
+            <!-- Format cards will be generated by JavaScript -->
+        </div>
+        
+        <div class="main-content">
+            <section class="form-section">
+                <h2 class="section-title">Your Information</h2>
+                
+                <div class="photo-upload">
+                    <div class="photo-preview" id="photoPreview">
+                        <div class="photo-placeholder">No Photo</div>
+                    </div>
+                    <input type="file" id="photoUpload" accept="image/*" style="display: none;">
+                    <button class="photo-upload-btn" id="uploadTrigger">Upload Photo</button>
                 </div>
                 
-                <form id="resumeForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" id="fullName" placeholder="Enter your full name">
-                        </div>
-                        <div class="form-group">
-                            <label for="jobTitle">Professional Title</label>
-                            <input type="text" id="jobTitle" placeholder="e.g. Software Engineer">
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="fullName" class="required">Full Name</label>
+                    <input type="text" id="fullName" placeholder="John Doe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="required">Email</label>
+                    <input type="email" id="email" placeholder="john.doe@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" placeholder="(123) 456-7890">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="New York, NY">
+                </div>
+                
+                <div class="form-section-group">
+                    <h3 class="section-title">Personal Details</h3>
                     
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="your.email@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="tel" id="phone" placeholder="+91 98765 43210">
-                        </div>
+                    <div class="form-group">
+                        <label for="fatherName">Father's Name</label>
+                        <input type="text" id="fatherName" placeholder="Father's Name">
                     </div>
                     
                     <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" placeholder="Your complete address">
+                        <label for="gender">Gender</label>
+                        <select id="gender">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="summary">Professional Summary</label>
-                        <textarea id="summary" rows="4" placeholder="Brief overview of your professional background and skills"></textarea>
-                    </div>
-                    
-                    <div class="section-title">
-                        <h2>Work Experience</h2>
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob">
                     </div>
                     
                     <div class="form-group">
-                        <label for="company">Company</label>
-                        <input type="text" id="company" placeholder="Company name">
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="jobRole">Job Title</label>
-                            <input type="text" id="jobRole" placeholder="Your role at the company">
-                        </div>
-                        <div class="form-group">
-                            <label for="workDuration">Duration</label>
-                            <input type="text" id="workDuration" placeholder="e.g. Jan 2020 - Present">
-                        </div>
+                        <label for="maritalStatus">Marital Status</label>
+                        <select id="maritalStatus">
+                            <option value="">Select Marital Status</option>
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Divorced">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="workDescription">Job Description</label>
-                        <textarea id="workDescription" rows="3" placeholder="Describe your responsibilities and achievements"></textarea>
-                    </div>
-                    
-                    <button type="button" class="btn btn-secondary" id="addExperience">Add Another Experience</button>
-                    
-                    <div class="section-title">
-                        <h2>Education</h2>
+                        <label for="nationality">Nationality</label>
+                        <input type="text" id="nationality" placeholder="Your Nationality">
                     </div>
                     
                     <div class="form-group">
-                        <label for="institution">Institution</label>
-                        <input type="text" id="institution" placeholder="School/College/University">
+                        <label for="languages">Languages Known</label>
+                        <input type="text" id="languages" placeholder="English, Hindi, French">
                     </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="degree">Degree/Certificate</label>
-                            <input type="text" id="degree" placeholder="e.g. Bachelor of Technology">
+                </div>
+                
+                <div class="form-section-group">
+                    <h3 class="section-title">Career Objective</h3>
+                    <div class="objective-options" id="objectiveOptions">
+                        <!-- Career objectives will be populated by JavaScript -->
+                    </div>
+                    <div class="form-group">
+                        <label for="customObjective">Or write your own objective:</label>
+                        <textarea id="customObjective" placeholder="Enter your custom career objective..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="form-section-group">
+                    <h3 class="section-title">Work Experience <span class="optional-label">(Optional)</span></h3>
+                    <div id="experienceContainer">
+                        <div class="experience-entry">
+                            <div class="form-group">
+                                <label for="company1">Company</label>
+                                <input type="text" id="company1" placeholder="ABC Corporation">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="position1">Position</label>
+                                <input type="text" id="position1" placeholder="Senior Developer">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="duration1">Duration</label>
+                                <input type="text" id="duration1" placeholder="Jan 2020 - Present">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="description1">Description</label>
+                                <textarea id="description1" placeholder="Responsibilities and achievements..."></textarea>
+                            </div>
+                            <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateResumePreview();">Remove</button>
                         </div>
-                        <div class="form-group">
-                            <label for="educationDuration">Duration</label>
-                            <input type="text" id="educationDuration" placeholder="e.g. 2016 - 2020">
+                    </div>
+                    <button class="add-btn" id="addExperience">+ Add Experience</button>
+                </div>
+                
+                <div class="form-section-group">
+                    <h3 class="section-title">Qualifications</h3>
+                    <div id="educationContainer">
+                        <div class="education-entry">
+                            <div class="form-group">
+                                <label for="qualification1">Qualification</label>
+                                <input type="text" id="qualification1" placeholder="Bachelor of Science in Computer Science">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="school1">Name of School/College</label>
+                                <input type="text" id="school1" placeholder="University of Technology">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="boardUniversity1">Board/University</label>
+                                <input type="text" id="boardUniversity1" placeholder="State University">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="passingYear1">Passing Year</label>
+                                <input type="text" id="passingYear1" placeholder="2018">
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="section-title">
-                        <h2>Skills</h2>
-                    </div>
-                    
+                    <button class="add-btn" id="addEducation">+ Add Another Qualification</button>
+                </div>
+                
+                <div class="form-section-group">
+                    <h3 class="section-title">Skills</h3>
                     <div class="form-group">
                         <label for="skills">Skills (comma separated)</label>
-                        <input type="text" id="skills" placeholder="e.g. JavaScript, React, Node.js, Project Management">
+                        <input type="text" id="skills" placeholder="JavaScript, React, Node.js, Python">
                     </div>
-                    
-                    <div class="action-buttons">
-                        <button type="button" class="btn" id="updatePreview">Update Preview</button>
-                        <button type="button" class="btn btn-accent" id="downloadPdf">Download as PDF</button>
-                        <button type="button" class="btn btn-secondary" id="resetForm">Reset Form</button>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Preview Section -->
-            <div class="preview-section">
-                <div class="section-title">
-                    <h2>Resume Preview</h2>
                 </div>
                 
-                <div class="resume-preview" id="resumePreview">
-                    <div class="resume-header">
-                        <h2 id="previewName">Your Name</h2>
-                        <p id="previewTitle">Professional Title</p>
-                        <p id="previewContact">email@example.com | +91 98765 43210 | Your Address</p>
-                    </div>
-                    
-                    <div class="resume-section">
-                        <h3>Professional Summary</h3>
-                        <p id="previewSummary">Brief overview of your professional background, skills, and career objectives.</p>
-                    </div>
-                    
-                    <div class="resume-section">
-                        <h3>Work Experience</h3>
-                        <div class="resume-item">
-                            <h4 id="previewJobRole">Job Title</h4>
-                            <p class="date" id="previewWorkDuration">Jan 2020 - Present</p>
-                            <p id="previewCompany">Company Name</p>
-                            <p id="previewWorkDescription">Description of your responsibilities and achievements in this role.</p>
+                <div class="form-section-group">
+                    <h3 class="section-title">Strengths</h3>
+                    <div class="strengths-checkboxes">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength1" value="Good communication skills">
+                            <label for="strength1">Good communication skills</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength2" value="Quick learner">
+                            <label for="strength2">Quick learner</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength3" value="Self Motivator">
+                            <label for="strength3">Self Motivator</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength4" value="Mingling Nature">
+                            <label for="strength4">Mingling Nature</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength5" value="Good Team Player">
+                            <label for="strength5">Good Team Player</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength6" value="Adaptability">
+                            <label for="strength6">Adaptability</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength7" value="Problem-solving">
+                            <label for="strength7">Problem-solving</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength8" value="Attention to detail">
+                            <label for="strength8">Attention to detail</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength9" value="Positive attitude">
+                            <label for="strength9">Positive attitude</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="strength10" value="Be specific">
+                            <label for="strength10">Be specific</label>
                         </div>
                     </div>
-                    
-                    <div class="resume-section">
-                        <h3>Education</h3>
-                        <div class="resume-item">
-                            <h4 id="previewDegree">Degree/Certificate</h4>
-                            <p class="date" id="previewEducationDuration">2016 - 2020</p>
-                            <p id="previewInstitution">Institution Name</p>
-                        </div>
-                    </div>
-                    
-                    <div class="resume-section">
-                        <h3>Skills</h3>
-                        <div class="skills-list" id="previewSkills">
-                            <span class="skill-tag">Sample Skill 1</span>
-                            <span class="skill-tag">Sample Skill 2</span>
-                            <span class="skill-tag">Sample Skill 3</span>
-                        </div>
+                    <div class="form-group">
+                        <label for="customStrengths">Additional Strengths (comma separated)</label>
+                        <input type="text" id="customStrengths" placeholder="Add any other strengths...">
                     </div>
                 </div>
-            </div>
+                
+                <div class="form-section-group">
+                    <h3 class="section-title">Achievements <span class="optional-label">(Optional)</span></h3>
+                    <div id="achievementsContainer">
+                        <div class="achievement-entry">
+                            <div class="form-group">
+                                <label for="achievement1">Achievement</label>
+                                <input type="text" id="achievement1" placeholder="Won Best Student Award">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="achievementYear1">Year</label>
+                                <input type="text" id="achievementYear1" placeholder="2020">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="achievementDescription1">Description</label>
+                                <textarea id="achievementDescription1" placeholder="Details about the achievement..."></textarea>
+                            </div>
+                            <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateResumePreview();">Remove</button>
+                        </div>
+                    </div>
+                    <button class="add-btn" id="addAchievement">+ Add Achievement</button>
+                </div>
+                
+                <div class="form-section-group">
+                    <h3 class="section-title">Projects <span class="optional-label">(Optional)</span></h3>
+                    <div id="projectsContainer">
+                        <div class="project-entry">
+                            <div class="form-group">
+                                <label for="project1">Project Name</label>
+                                <input type="text" id="project1" placeholder="E-commerce Website">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="projectDuration1">Duration</label>
+                                <input type="text" id="projectDuration1" placeholder="3 months">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="projectDescription1">Description</label>
+                                <textarea id="projectDescription1" placeholder="Project details and your role..."></textarea>
+                            </div>
+                            <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateResumePreview();">Remove</button>
+                        </div>
+                    </div>
+                    <button class="add-btn" id="addProject">+ Add Project</button>
+                </div>
+            </section>
+            
+            <section class="preview-section">
+                <h2 class="section-title">Resume Preview (A4 Size)</h2>
+                <div class="a4-paper format1" id="resumePreview">
+                    <!-- A4 resume content will be generated by JavaScript -->
+                </div>
+                <button class="btn btn-download" id="downloadBtn">
+                    <span>Export to PDF</span>
+                </button>
+            </section>
         </div>
     </div>
-
-    <!-- Footer -->
+    
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Laxmi Technologies</h3>
-                    <p>Your trusted partner for digital government services and technological solutions.</p>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="#">PAN Card Services</a></li>
-                        <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Services</a></li>
-                        <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul>
-                        <li><a href="excel.html">Excel Tutorials</a></li>
-                        <li><a href="resume.html">Resume Builder</a></li>
-                        <li><a href="#">Job Updates</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 Laxmi Technologies. All rights reserved.</p>
-            </div>
+            <p>&copy; 2023 Professional Resume Builder. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- PAN Card Registration Modal -->
-    <div id="panModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
-        <div style="background: white; padding: 2rem; border-radius: 10px; width: 90%; max-width: 500px; box-shadow: 0 5px 25px rgba(0,0,0,0.2);">
-            <h2 style="color: #4a00e0; margin-bottom: 1.5rem; text-align: center;">PAN Card Registration</h2>
-            <form id="panForm">
-                <div style="margin-bottom: 1rem;">
-                    <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Full Name</label>
-                    <input type="text" id="name" name="name" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
-                </div>
-                <div style="margin-bottom: 1rem;">
-                    <label for="mobile" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Mobile Number</label>
-                    <input type="tel" id="mobile" name="mobile" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
-                </div>
-                <div style="margin-bottom: 1rem;">
-                    <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email Address</label>
-                    <input type="email" id="email" name="email" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
-                </div>
-                <div style="margin-bottom: 1.5rem;">
-                    <label for="address" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Address</label>
-                    <textarea id="address" name="address" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; min-height: 100px;"></textarea>
-                </div>
-                <div style="display: flex; gap: 1rem;">
-                    <button type="submit" style="flex: 1; background: #4a00e0; color: white; border: none; padding: 0.8rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);">Submit</button>
-                    <button type="button" id="closeModal" style="flex: 1; background: #ddd; color: var(--dark); border: none; padding: 0.8rem; border-radius: 5px; font-weight: 600; cursor: pointer; transition: var(--transition);">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <script>
-        // Mobile Menu Toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navMenu = document.getElementById('navMenu');
-        
-        menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+        // Career objectives data
+        const careerObjectives = [
+            "To succeed in an environment of growth and excellence and earn a job which provides me job Satisfaction and self-development and help me achieve personal as well as organization goals.",
+            "To seek challenging assignment and responsibility, with an opportunity for growth and career advancement as successful achievements.",
+            "To be involved in work where I can utilize skill and creatively involved with system that effectively contributes to the growth of organization",
+            "To work hard with full determination and dedication to achieve organizational as well as personal goals.",
+            "To obtain a position of responsibilities that utilizes my skills and experience and keen to work in an environment where I can enrich my knowledge.",
+            "To be a part of Organization that provides an atmosphere of mutual growth and benefits, where I can show my talent and potential.",
+            "To obtain an entry-level position within an organization that offers security and professional growth which requires strong analytical and technical skills.",
+            "As I am the fresher in this field, I will know about the nature of my work. Moreover, I will attempt to know about the various processes which form my job. By doing so, I will be able to do my job more proficiently. On the other hand, I shall implement my knowledge into the practical world.",
+            "I would like to be a part of an organization where I could use and enhance my knowledge and talent for the development of both the organization and myself.",
+            "To take up a challenging Career grows with honesty, loyalty, Good relationship and best performance, and translate my Experience, knowledge, skills and abilities into value for an Organization",
+            "Seeking a position to utilize my skills and abilities in the Computer industries that offers professional growth while being resourceful, innovative and flexible. Willing to work as a key player in challenging and creative environment"
+        ];
 
-        // Mobile Dropdown Toggle
-        const onlineServices = document.getElementById('onlineServices');
-        const dropdown = document.querySelector('.dropdown-parent .dropdown');
-        
-        if (window.innerWidth <= 768) {
-            onlineServices.addEventListener('click', (e) => {
-                e.preventDefault();
-                dropdown.classList.toggle('active');
+        // Resume format data
+        const resumeFormats = [
+            { id: 'format1', name: 'Professional Blue', color: '#3498db' },
+            { id: 'format2', name: 'Modern Green', color: '#1abc9c' },
+            { id: 'format3', name: 'Creative Purple', color: '#9b59b6' },
+            { id: 'format4', name: 'Elegant Navy', color: '#2c3e50' },
+            { id: 'format5', name: 'Minimalist Gray', color: '#7f8c8d' },
+            { id: 'format6', name: 'Corporate Red', color: '#e74c3c' },
+            { id: 'format7', name: 'Tech Blue', color: '#34495e' },
+            { id: 'format8', name: 'Fresh Green', color: '#27ae60' },
+            { id: 'format9', name: 'Warm Orange', color: '#e67e22' },
+            { id: 'format10', name: 'Cool Cyan', color: '#0984e3' },
+            { id: 'format11', name: 'Classic Brown', color: '#a55c2f' },
+            { id: 'format12', name: 'Bold Pink', color: '#e84393' }
+        ];
+
+        // Initialize format dashboard
+        const formatDashboard = document.getElementById('formatDashboard');
+        resumeFormats.forEach((format, index) => {
+            const formatCard = document.createElement('div');
+            formatCard.className = 'format-card';
+            formatCard.dataset.format = format.id;
+            
+            formatCard.innerHTML = `
+                <div class="format-preview" style="background: ${format.color};">
+                    <div style="background: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                        <div style="font-weight: bold; color: ${format.color}; margin-bottom: 5px;">${format.name}</div>
+                        <div style="font-size: 12px; color: #555;">Sample Resume Preview</div>
+                    </div>
+                </div>
+                <div class="format-name">${format.name}</div>
+            `;
+            
+            formatCard.addEventListener('click', () => {
+                // Remove active class from all cards
+                document.querySelectorAll('.format-card').forEach(card => {
+                    card.classList.remove('active');
+                });
+                
+                // Add active class to clicked card
+                formatCard.classList.add('active');
+                
+                // Update resume preview with selected format
+                const resumePreview = document.getElementById('resumePreview');
+                resumePreview.className = 'a4-paper';
+                resumePreview.classList.add(format.id);
+                
+                // Update resume preview content
+                updateResumePreview();
             });
-        }
-
-        // PAN Card Service Modal
-        const panCardService = document.getElementById('panCardService');
-        const panModal = document.getElementById('panModal');
-        const closeModal = document.getElementById('closeModal');
-        const panForm = document.getElementById('panForm');
-
-        function openPanModal() {
-            panModal.style.display = 'flex';
-        }
-
-        function closePanModal() {
-            panModal.style.display = 'none';
-        }
-
-        panCardService.addEventListener('click', (e) => {
-            e.preventDefault();
-            openPanModal();
+            
+            formatDashboard.appendChild(formatCard);
         });
 
-        closeModal.addEventListener('click', closePanModal);
+        // Set first format as active by default
+        document.querySelector('.format-card').classList.add('active');
 
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === panModal) {
-                closePanModal();
+        // Initialize career objectives
+        const objectiveOptions = document.getElementById('objectiveOptions');
+        careerObjectives.forEach((objective, index) => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'objective-option';
+            optionDiv.textContent = objective;
+            optionDiv.dataset.index = index;
+            
+            optionDiv.addEventListener('click', () => {
+                // Remove selected class from all options
+                document.querySelectorAll('.objective-option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                optionDiv.classList.add('selected');
+                
+                // Clear custom objective
+                document.getElementById('customObjective').value = '';
+                
+                // Update resume preview
+                updateResumePreview();
+            });
+            
+            objectiveOptions.appendChild(optionDiv);
+        });
+
+        // Photo upload functionality
+        const photoUpload = document.getElementById('photoUpload');
+        const uploadTrigger = document.getElementById('uploadTrigger');
+        const photoPreview = document.getElementById('photoPreview');
+        let uploadedPhoto = null;
+
+        uploadTrigger.addEventListener('click', () => {
+            photoUpload.click();
+        });
+
+        photoUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    uploadedPhoto = event.target.result;
+                    photoPreview.innerHTML = `<img src="${uploadedPhoto}" alt="Profile Photo">`;
+                    updateResumePreview();
+                };
+                reader.readAsDataURL(file);
             }
         });
 
-        // Form submission
-        panForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your PAN card registration! We will contact you soon.');
-            closePanModal();
-            panForm.reset();
-        });
-
-        // Resume Builder Functionality
-        document.getElementById('updatePreview').addEventListener('click', updateResumePreview);
-        document.getElementById('resetForm').addEventListener('click', resetResumeForm);
-        document.getElementById('downloadPdf').addEventListener('click', downloadResumeAsPdf);
-
-        function updateResumePreview() {
-            // Update personal information
-            document.getElementById('previewName').textContent = 
-                document.getElementById('fullName').value || 'Your Name';
-            document.getElementById('previewTitle').textContent = 
-                document.getElementById('jobTitle').value || 'Professional Title';
+        // Dynamic form fields for experience, education, achievements, and projects
+        let experienceCount = 1;
+        let educationCount = 1;
+        let achievementCount = 1;
+        let projectCount = 1;
+        
+        document.getElementById('addExperience').addEventListener('click', () => {
+            experienceCount++;
+            const container = document.getElementById('experienceContainer');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'experience-entry';
+            newEntry.innerHTML = `
+                <div class="form-group">
+                    <label for="company${experienceCount}">Company</label>
+                    <input type="text" id="company${experienceCount}" placeholder="ABC Corporation">
+                </div>
+                
+                <div class="form-group">
+                    <label for="position${experienceCount}">Position</label>
+                    <input type="text" id="position${experienceCount}" placeholder="Senior Developer">
+                </div>
+                
+                <div class="form-group">
+                    <label for="duration${experienceCount}">Duration</label>
+                    <input type="text" id="duration${experienceCount}" placeholder="Jan 2020 - Present">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description${experienceCount}">Description</label>
+                    <textarea id="description${experienceCount}" placeholder="Responsibilities and achievements..."></textarea>
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateResumePreview();">Remove</button>
+            `;
+            container.appendChild(newEntry);
             
-            // Update contact information
-            const email = document.getElementById('email').value || 'email@example.com';
-            const phone = document.getElementById('phone').value || '+91 98765 43210';
-            const address = document.getElementById('address').value || 'Your Address';
-            document.getElementById('previewContact').textContent = `${email} | ${phone} | ${address}`;
-            
-            // Update summary
-            document.getElementById('previewSummary').textContent = 
-                document.getElementById('summary').value || 'Brief overview of your professional background, skills, and career objectives.';
-            
-            // Update work experience
-            document.getElementById('previewJobRole').textContent = 
-                document.getElementById('jobRole').value || 'Job Title';
-            document.getElementById('previewWorkDuration').textContent = 
-                document.getElementById('workDuration').value || 'Jan 2020 - Present';
-            document.getElementById('previewCompany').textContent = 
-                document.getElementById('company').value || 'Company Name';
-            document.getElementById('previewWorkDescription').textContent = 
-                document.getElementById('workDescription').value || 'Description of your responsibilities and achievements in this role.';
-            
-            // Update education
-            document.getElementById('previewDegree').textContent = 
-                document.getElementById('degree').value || 'Degree/Certificate';
-            document.getElementById('previewEducationDuration').textContent = 
-                document.getElementById('educationDuration').value || '2016 - 2020';
-            document.getElementById('previewInstitution').textContent = 
-                document.getElementById('institution').value || 'Institution Name';
-            
-            // Update skills
-            const skillsInput = document.getElementById('skills').value;
-            const skillsArray = skillsInput ? skillsInput.split(',').map(skill => skill.trim()) : ['Sample Skill 1', 'Sample Skill 2', 'Sample Skill 3'];
-            
-            const skillsContainer = document.getElementById('previewSkills');
-            skillsContainer.innerHTML = '';
-            
-            skillsArray.forEach(skill => {
-                if (skill) {
-                    const skillElement = document.createElement('span');
-                    skillElement.className = 'skill-tag';
-                    skillElement.textContent = skill;
-                    skillsContainer.appendChild(skillElement);
+            // Add event listeners to new inputs
+            ['company', 'position', 'duration', 'description'].forEach(field => {
+                const input = document.getElementById(`${field}${experienceCount}`);
+                if (input) {
+                    input.addEventListener('input', updateResumePreview);
                 }
             });
+        });
+        
+        document.getElementById('addEducation').addEventListener('click', () => {
+            educationCount++;
+            const container = document.getElementById('educationContainer');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'education-entry';
+            newEntry.innerHTML = `
+                <div class="form-group">
+                    <label for="qualification${educationCount}">Qualification</label>
+                    <input type="text" id="qualification${educationCount}" placeholder="Bachelor of Science in Computer Science">
+                </div>
+                
+                <div class="form-group">
+                    <label for="school${educationCount}">Name of School/College</label>
+                    <input type="text" id="school${educationCount}" placeholder="University of Technology">
+                </div>
+                
+                <div class="form-group">
+                    <label for="boardUniversity${educationCount}">Board/University</label>
+                    <input type="text" id="boardUniversity${educationCount}" placeholder="State University">
+                </div>
+                
+                <div class="form-group">
+                    <label for="passingYear${educationCount}">Passing Year</label>
+                    <input type="text" id="passingYear${educationCount}" placeholder="2018">
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateResumePreview();">Remove</button>
+            `;
+            container.appendChild(newEntry);
+            
+            // Add event listeners to new inputs
+            ['qualification', 'school', 'boardUniversity', 'passingYear'].forEach(field => {
+                const input = document.getElementById(`${field}${educationCount}`);
+                if (input) {
+                    input.addEventListener('input', updateResumePreview);
+                }
+            });
+        });
+        
+        document.getElementById('addAchievement').addEventListener('click', () => {
+            achievementCount++;
+            const container = document.getElementById('achievementsContainer');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'achievement-entry';
+            newEntry.innerHTML = `
+                <div class="form-group">
+                    <label for="achievement${achievementCount}">Achievement</label>
+                    <input type="text" id="achievement${achievementCount}" placeholder="Won Best Student Award">
+                </div>
+                
+                <div class="form-group">
+                    <label for="achievementYear${achievementCount}">Year</label>
+                    <input type="text" id="achievementYear${achievementCount}" placeholder="2020">
+                </div>
+                
+                <div class="form-group">
+                    <label for="achievementDescription${achievementCount}">Description</label>
+                    <textarea id="achievementDescription${achievementCount}" placeholder="Details about the achievement..."></textarea>
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateResumePreview();">Remove</button>
+            `;
+            container.appendChild(newEntry);
+            
+            // Add event listeners to new inputs
+            ['achievement', 'achievementYear', 'achievementDescription'].forEach(field => {
+                const input = document.getElementById(`${field}${achievementCount}`);
+                if (input) {
+                    input.addEventListener('input', updateResumePreview);
+                }
+            });
+        });
+        
+        document.getElementById('addProject').addEventListener('click', () => {
+            projectCount++;
+            const container = document.getElementById('projectsContainer');
+            const newEntry = document.createElement('div');
+            newEntry.className = 'project-entry';
+            newEntry.innerHTML = `
+                <div class="form-group">
+                    <label for="project${projectCount}">Project Name</label>
+                    <input type="text" id="project${projectCount}" placeholder="E-commerce Website">
+                </div>
+                
+                <div class="form-group">
+                    <label for="projectDuration${projectCount}">Duration</label>
+                    <input type="text" id="projectDuration${projectCount}" placeholder="3 months">
+                </div>
+                
+                <div class="form-group">
+                    <label for="projectDescription${projectCount}">Description</label>
+                    <textarea id="projectDescription${projectCount}" placeholder="Project details and your role..."></textarea>
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove(); updateResumePreview();">Remove</button>
+            `;
+            container.appendChild(newEntry);
+            
+            // Add event listeners to new inputs
+            ['project', 'projectDuration', 'projectDescription'].forEach(field => {
+                const input = document.getElementById(`${field}${projectCount}`);
+                if (input) {
+                    input.addEventListener('input', updateResumePreview);
+                }
+            });
+        });
+
+        // Form input elements
+        const formInputs = [
+            'fullName', 'email', 'phone', 'location', 'skills', 'customObjective',
+            'fatherName', 'gender', 'dob', 'maritalStatus', 'nationality', 'languages', 'customStrengths'
+        ];
+
+        // Add event listeners to form inputs
+        formInputs.forEach(inputId => {
+            const input = document.getElementById(inputId);
+            if (input) {
+                input.addEventListener('input', updateResumePreview);
+                input.addEventListener('change', updateResumePreview);
+            }
+        });
+
+        // Add event listeners to strength checkboxes
+        for (let i = 1; i <= 10; i++) {
+            const checkbox = document.getElementById(`strength${i}`);
+            if (checkbox) {
+                checkbox.addEventListener('change', updateResumePreview);
+            }
         }
 
-        function resetResumeForm() {
-            document.getElementById('resumeForm').reset();
-            updateResumePreview();
+        // Format date for display
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
         }
 
-        function downloadResumeAsPdf() {
-            alert('In a real implementation, this would generate and download a PDF of your resume. For now, you can use your browser\'s print function to save as PDF.');
-            // In a real implementation, you would use a library like jsPDF or html2pdf.js
-            // window.print(); // This would open the browser's print dialog
+        // Get selected career objective
+        function getSelectedObjective() {
+            const customObjective = document.getElementById('customObjective').value;
+            if (customObjective) {
+                return customObjective;
+            }
+            
+            const selectedOption = document.querySelector('.objective-option.selected');
+            if (selectedOption) {
+                return careerObjectives[selectedOption.dataset.index];
+            }
+            
+            return '';
         }
 
-        // Initialize with default preview
+        // Get selected strengths
+        function getSelectedStrengths() {
+            const strengths = [];
+            
+            // Get strengths from checkboxes
+            for (let i = 1; i <= 10; i++) {
+                const checkbox = document.getElementById(`strength${i}`);
+                if (checkbox && checkbox.checked) {
+                    strengths.push(checkbox.value);
+                }
+            }
+            
+            // Get custom strengths
+            const customStrengthsText = document.getElementById('customStrengths').value || '';
+            const customStrengths = customStrengthsText.split(',').map(strength => strength.trim()).filter(strength => strength);
+            
+            return [...strengths, ...customStrengths];
+        }
+
+        // Update resume preview
+        function updateResumePreview() {
+            const resumePreview = document.getElementById('resumePreview');
+            const currentFormat = resumePreview.classList[1] || 'format1';
+            
+            // Get form values
+            const fullName = document.getElementById('fullName').value || 'Your Name';
+            const email = document.getElementById('email').value || 'email@example.com';
+            const phone = document.getElementById('phone').value || '(123) 456-7890';
+            const location = document.getElementById('location').value || 'City, State';
+            const objective = getSelectedObjective();
+            
+            // Personal information
+            const fatherName = document.getElementById('fatherName').value || '';
+            const gender = document.getElementById('gender').value || '';
+            const dob = formatDate(document.getElementById('dob').value);
+            const maritalStatus = document.getElementById('maritalStatus').value || '';
+            const nationality = document.getElementById('nationality').value || '';
+            const languages = document.getElementById('languages').value || '';
+            
+            // Get all experience entries
+            const experienceEntries = [];
+            for (let i = 1; i <= experienceCount; i++) {
+                const company = document.getElementById(`company${i}`);
+                const position = document.getElementById(`position${i}`);
+                const duration = document.getElementById(`duration${i}`);
+                const description = document.getElementById(`description${i}`);
+                
+                if (company && company.value) {
+                    experienceEntries.push({
+                        company: company.value,
+                        position: position ? position.value : '',
+                        duration: duration ? duration.value : '',
+                        description: description ? description.value : ''
+                    });
+                }
+            }
+            
+            // Get all education entries
+            const educationEntries = [];
+            for (let i = 1; i <= educationCount; i++) {
+                const qualification = document.getElementById(`qualification${i}`);
+                const school = document.getElementById(`school${i}`);
+                const boardUniversity = document.getElementById(`boardUniversity${i}`);
+                const passingYear = document.getElementById(`passingYear${i}`);
+                
+                if (qualification && qualification.value) {
+                    educationEntries.push({
+                        qualification: qualification.value,
+                        school: school ? school.value : '',
+                        boardUniversity: boardUniversity ? boardUniversity.value : '',
+                        passingYear: passingYear ? passingYear.value : ''
+                    });
+                }
+            }
+            
+            // Get all achievement entries
+            const achievementEntries = [];
+            for (let i = 1; i <= achievementCount; i++) {
+                const achievement = document.getElementById(`achievement${i}`);
+                const achievementYear = document.getElementById(`achievementYear${i}`);
+                const achievementDescription = document.getElementById(`achievementDescription${i}`);
+                
+                if (achievement && achievement.value) {
+                    achievementEntries.push({
+                        achievement: achievement.value,
+                        year: achievementYear ? achievementYear.value : '',
+                        description: achievementDescription ? achievementDescription.value : ''
+                    });
+                }
+            }
+            
+            // Get all project entries
+            const projectEntries = [];
+            for (let i = 1; i <= projectCount; i++) {
+                const project = document.getElementById(`project${i}`);
+                const projectDuration = document.getElementById(`projectDuration${i}`);
+                const projectDescription = document.getElementById(`projectDescription${i}`);
+                
+                if (project && project.value) {
+                    projectEntries.push({
+                        project: project.value,
+                        duration: projectDuration ? projectDuration.value : '',
+                        description: projectDescription ? projectDescription.value : ''
+                    });
+                }
+            }
+            
+            const skillsText = document.getElementById('skills').value || 'Skill 1, Skill 2, Skill 3';
+            const skills = skillsText.split(',').map(skill => skill.trim());
+            
+            // Get strengths
+            const strengths = getSelectedStrengths();
+            
+            // Generate resume HTML based on the selected format
+            let resumeHTML = `
+                <div class="resume-content">
+                    <div class="resume-header">
+                        ${uploadedPhoto ? `
+                        <div class="resume-photo">
+                            <img src="${uploadedPhoto}" alt="Profile Photo">
+                        </div>
+                        ` : ''}
+                        <div class="resume-info">
+                            <div class="resume-name">${fullName}</div>
+                            <div class="resume-contact">
+                                ${email ? `<div>${email}</div>` : ''}
+                                ${phone ? `<div>${phone}</div>` : ''}
+                                ${location ? `<div>${location}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    ${objective ? `
+                    <div class="resume-section">
+                        <div class="resume-section-title">Career Objective</div>
+                        <p>${objective}</p>
+                    </div>
+                    ` : ''}
+                    
+                    ${experienceEntries.length > 0 ? `
+                    <div class="resume-section">
+                        <div class="resume-section-title">Work Experience</div>
+                        ${experienceEntries.map(exp => `
+                            <div class="experience-item">
+                                <div class="item-header">
+                                    <div class="item-title">${exp.company}</div>
+                                    <div class="item-date">${exp.duration}</div>
+                                </div>
+                                ${exp.position ? `<div class="item-subtitle">${exp.position}</div>` : ''}
+                                ${exp.description ? `<p>${exp.description}</p>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+                    
+                    ${educationEntries.length > 0 ? `
+                    <div class="resume-section">
+                        <div class="resume-section-title">Qualifications</div>
+                        ${educationEntries.map(edu => `
+                            <div class="education-item">
+                                <div class="item-header">
+                                    <div class="item-title">${edu.qualification}</div>
+                                    <div class="item-date">${edu.passingYear}</div>
+                                </div>
+                                ${edu.school ? `<div class="item-subtitle">${edu.school}</div>` : ''}
+                                ${edu.boardUniversity ? `<div class="item-subtitle">${edu.boardUniversity}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+                    
+                    ${skills.length > 0 && skills[0] !== '' ? `
+                    <div class="resume-section">
+                        <div class="resume-section-title">Skills</div>
+                        <ul class="skills-list">
+                            ${skills.map(skill => `<li>${skill}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    ${strengths.length > 0 ? `
+                    <div class="resume-section">
+                        <div class="resume-section-title">Strengths</div>
+                        <ul class="strengths-list">
+                            ${strengths.map(strength => `<li>${strength}</li>`).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    ${achievementEntries.length > 0 ? `
+                    <div class="resume-section">
+                        <div class="resume-section-title">Achievements</div>
+                        <ul class="achievements-list">
+                            ${achievementEntries.map(ach => `
+                                <li>
+                                    <strong>${ach.achievement}</strong> ${ach.year ? `(${ach.year})` : ''}
+                                    ${ach.description ? `<br>${ach.description}` : ''}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    ${projectEntries.length > 0 ? `
+                    <div class="resume-section">
+                        <div class="resume-section-title">Projects</div>
+                        <ul class="projects-list">
+                            ${projectEntries.map(proj => `
+                                <li>
+                                    <strong>${proj.project}</strong> ${proj.duration ? `(${proj.duration})` : ''}
+                                    ${proj.description ? `<br>${proj.description}` : ''}
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    ${(fatherName || gender || dob || maritalStatus || nationality || languages) ? `
+                    <div class="resume-section">
+                        <div class="resume-section-title">Personal Details</div>
+                        <div class="personal-details-grid">
+                            ${fatherName ? `
+                            <div class="personal-detail-item">
+                                <div class="personal-detail-label">Father's Name:</div>
+                                <div class="personal-detail-value">${fatherName}</div>
+                            </div>
+                            ` : ''}
+                            
+                            ${gender ? `
+                            <div class="personal-detail-item">
+                                <div class="personal-detail-label">Gender:</div>
+                                <div class="personal-detail-value">${gender}</div>
+                            </div>
+                            ` : ''}
+                            
+                            ${dob ? `
+                            <div class="personal-detail-item">
+                                <div class="personal-detail-label">Date of Birth:</div>
+                                <div class="personal-detail-value">${dob}</div>
+                            </div>
+                            ` : ''}
+                            
+                            ${maritalStatus ? `
+                            <div class="personal-detail-item">
+                                <div class="personal-detail-label">Marital Status:</div>
+                                <div class="personal-detail-value">${maritalStatus}</div>
+                            </div>
+                            ` : ''}
+                            
+                            ${nationality ? `
+                            <div class="personal-detail-item">
+                                <div class="personal-detail-label">Nationality:</div>
+                                <div class="personal-detail-value">${nationality}</div>
+                            </div>
+                            ` : ''}
+                            
+                            ${languages ? `
+                            <div class="personal-detail-item">
+                                <div class="personal-detail-label">Languages Known:</div>
+                                <div class="personal-detail-value">${languages}</div>
+                            </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="declaration">
+                        <div class="declaration-title">Declaration</div>
+                        <p>I do hereby declare that the particulars of information and facts stated here in above are true, correct and complete to the best of my knowledge and belief.</p>
+                        
+                        <div class="signature-area">
+                            <div>
+                                <div class="signature-line"></div>
+                                <div>Date</div>
+                            </div>
+                            <div>
+                                <div class="signature-line"></div>
+                                <div>Signature</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            resumePreview.innerHTML = resumeHTML;
+        }
+
+        // Initialize the resume preview
         updateResumePreview();
+
+        // Download as PDF
+        document.getElementById('downloadBtn').addEventListener('click', function() {
+            // Validate required fields
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            
+            if (!fullName || !email) {
+                alert('Please fill in all required fields (marked with *) before downloading.');
+                return;
+            }
+            
+            // Show loading indicator
+            const originalText = this.innerHTML;
+            this.innerHTML = '<span>Generating PDF...</span>';
+            this.disabled = true;
+            
+            // Use html2canvas and jsPDF for PDF generation
+            const element = document.getElementById('resumePreview');
+            
+            html2canvas(element, {
+                scale: 3, // Higher scale for better quality
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff'
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                const pdf = new jspdf.jsPDF({
+                    orientation: 'portrait',
+                    unit: 'mm',
+                    format: 'a4'
+                });
+                
+                // Calculate dimensions to fit A4 exactly
+                const imgWidth = 210; // A4 width in mm
+                const pageHeight = 295; // A4 height in mm
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                // Add image to PDF
+                pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, imgHeight);
+                pdf.save(`${fullName.replace(/\s+/g, '_')}_Resume.pdf`);
+                
+                // Restore button state
+                this.innerHTML = originalText;
+                this.disabled = false;
+            }).catch(error => {
+                console.error('Error generating PDF:', error);
+                alert('Error generating PDF. Please try again.');
+                
+                // Restore button state
+                this.innerHTML = originalText;
+                this.disabled = false;
+            });
+        });
     </script>
 </body>
 </html>

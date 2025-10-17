@@ -1,9 +1,10 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laxmi Technologies - Digital Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* CSS Variables for consistent theming */
         :root {
@@ -282,76 +283,139 @@
             border-radius: 2px;
         }
 
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        /* Services Carousel */
+        .services-carousel {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .services-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
         }
 
         .service-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-            cursor: pointer;
-            border-top: 4px solid #e00000;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            min-width: 100%;
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         .service-icon {
+            width: 100px;
+            height: 100px;
             background: linear-gradient(135deg, #e00000, #e22d2d);
-            height: 120px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-bottom: 20px;
             color: white;
-            font-size: 3rem;
+            font-size: 2.5rem;
+            box-shadow: 0 5px 15px rgba(224, 0, 0, 0.3);
         }
 
-        .service-content {
-            padding: 1.5rem;
-        }
-
-        .service-content h3 {
+        .service-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #e00000;
+            margin-bottom: 15px;
+            color: var(--dark);
         }
 
-        .service-content p {
-            color: #666;
-            margin-bottom: 1.5rem;
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            max-width: 600px;
         }
 
-        .contact-info {
-            background: #f8f9fa;
-            padding: 1rem;
+        .service-contact {
+            background-color: var(--light);
+            padding: 15px;
             border-radius: 5px;
-            margin-bottom: 1rem;
+            margin: 15px 0;
+            width: 100%;
         }
 
-        .contact-info p {
-            margin-bottom: 0.5rem;
+        .service-contact p {
+            margin-bottom: 5px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            gap: 10px;
         }
 
         .service-link {
             display: inline-block;
-            color: #e00000;
-            font-weight: 600;
+            background-color: #e00000;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 5px;
             text-decoration: none;
+            font-weight: 600;
             transition: var(--transition);
+            margin-top: 10px;
         }
 
         .service-link:hover {
-            color: #e22d2d;
+            background-color: #e22d2d;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .nav-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn.active {
+            background-color: var(--primary);
+        }
+
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(224, 0, 0, 0.8);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 10;
+        }
+
+        .carousel-arrow:hover {
+            background: rgba(224, 0, 0, 1);
+        }
+
+        .carousel-arrow.prev {
+            left: 10px;
+        }
+
+        .carousel-arrow.next {
+            right: 10px;
         }
 
         /* Job Updates Section */
@@ -557,6 +621,15 @@
             .job-meta {
                 grid-template-columns: 1fr;
             }
+
+            .carousel-arrow {
+                display: none;
+            }
+
+            .service-contact p {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
 
         /* Animation for job updates */
@@ -678,6 +751,8 @@
                                 <li><a href="#" id="panCardService">PAN Card Services</a></li>
                                 <li><a href="https://uidai.gov.in/" target="_blank">Aadhar Card Download</a></li>
                                 <li><a href="https://web.umang.gov.in/landing/" target="_blank">UMANG Services</a></li>
+                                <li><a href="resume.html">Resume Builder</a></li>
+                                <li><a href="#" id="repairService">Computer & Laptop Repairs</a></li>
                             </ul>
                         </li>
                         <li><a href="excel.html">Excel Videos</a></li>
@@ -694,58 +769,91 @@
         <div class="container">
             <h2>Digital Solutions for Modern India</h2>
             <p>Laxmi Technologies provides seamless access to essential government services and digital tools to empower every citizen.</p>
-            <a href="#" class="cta-button">Explore Services</a>
+            <a href="#services" class="cta-button">Explore Services</a>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services">
+    <section class="services" id="services">
         <div class="container">
             <div class="section-title">
                 <h2>Our Digital Services</h2>
+                <p>Access a wide range of government and digital services through our platform</p>
             </div>
-            <div class="services-grid">
-                <!-- PAN Card Service -->
-                <div class="service-card" id="panServiceCard">
-                    <div class="service-icon">
-                        📝
-                    </div>
-                    <div class="service-content">
+            <div class="services-carousel">
+                <button class="carousel-arrow prev" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="carousel-arrow next" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="services-wrapper" id="servicesWrapper">
+                    <!-- Service 1: PAN Card -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-id-card"></i>
+                        </div>
                         <h3>Instant PAN Service</h3>
                         <p>Apply for a new PAN card or make corrections to your existing PAN with our simplified process.</p>
                         
-                        <div class="contact-info">
+                        <div class="service-contact">
                             <p><strong>Contact us for PAN Card Services:</strong></p>
-                            <p>📞 Mobile: +91 98765 43210</p>
-                            <p>✉️ Email: pancard@laxmitech.com</p>
+                            <p><i class="fas fa-mobile-alt"></i> Mobile: +91 98765 43210</p>
+                            <p><i class="fas fa-envelope"></i> Email: pancard@laxmitech.com</p>
                         </div>
                         
-                        <a href="#" class="service-link" id="panServiceLink">Apply Now →</a>
+                        <a href="#" class="service-link" id="panServiceLink">Apply Now</a>
                     </div>
-                </div>
-
-                <!-- Aadhar Card Service -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        🆔
-                    </div>
-                    <div class="service-content">
+                    
+                    <!-- Service 2: Aadhar Services -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-address-card"></i>
+                        </div>
                         <h3>Aadhar Card Download</h3>
                         <p>Download your Aadhar card instantly or check your Aadhar status with our direct links.</p>
-                        <a href="https://uidai.gov.in/" target="_blank" class="service-link">Access Service →</a>
+                        <a href="https://uidai.gov.in/" target="_blank" class="service-link">Access Service</a>
                     </div>
-                </div>
-
-                <!-- UMANG Services -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        📱
-                    </div>
-                    <div class="service-content">
+                    
+                    <!-- Service 3: UMANG Services -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
                         <h3>UMANG Services</h3>
                         <p>Access multiple government services through the UMANG platform for a unified experience.</p>
-                        <a href="https://web.umang.gov.in/landing/" target="_blank" class="service-link">Explore UMANG →</a>
+                        <a href="https://web.umang.gov.in/landing/" target="_blank" class="service-link">Explore UMANG</a>
                     </div>
+                    
+                    <!-- Service 4: Resume Builder -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <h3>Resume Builder</h3>
+                        <p>Create professional resumes with our easy-to-use resume builder tool. Impress employers with a well-crafted CV.</p>
+                        <a href="resume.html" class="service-link">Build Your Resume</a>
+                    </div>
+                    
+                    <!-- Service 5: Computer & Laptop Repairs -->
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <h3>Computer & Laptop Repairs</h3>
+                        <p>Professional sales and services for computers and laptops with quick turnaround. Hardware and software solutions.</p>
+                        
+                        <div class="service-contact">
+                            <p><strong>Contact for Repairs:</strong></p>
+                            <p><i class="fas fa-phone"></i> Call: +91 99890 28100</p>
+                            <p><i class="fas fa-envelope"></i> Email: repairs@laxmitech.com</p>
+                        </div>
+                        
+                        <a href="tel:+919989028100" class="service-link">Call Now</a>
+                    </div>
+                </div>
+                <div class="carousel-nav" id="carouselNav">
+                    <!-- Navigation dots will be added dynamically -->
                 </div>
             </div>
         </div>
@@ -797,6 +905,14 @@
                         <li><a href="formulas.html">Excel Formulas</a></li>
                         <li><a href="#">Job Updates</a></li>
                         <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +91 99890 28100</li>
+                        <li><i class="fas fa-envelope"></i> info@laxmitech.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Mumbai, India</li>
                     </ul>
                 </div>
             </div>
@@ -856,7 +972,6 @@
         }
 
         // PAN Card Service Modal
-        const panServiceCard = document.getElementById('panServiceCard');
         const panServiceLink = document.getElementById('panServiceLink');
         const panCardService = document.getElementById('panCardService');
         const panModal = document.getElementById('panModal');
@@ -871,7 +986,6 @@
             panModal.style.display = 'none';
         }
 
-        panServiceCard.addEventListener('click', openPanModal);
         panServiceLink.addEventListener('click', (e) => {
             e.preventDefault();
             openPanModal();
@@ -918,6 +1032,61 @@
             // Redirect to WhatsApp
             window.open(whatsappUrl, '_blank');
         });
+
+        // Services Carousel Functionality
+        const servicesWrapper = document.getElementById('servicesWrapper');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const carouselNav = document.getElementById('carouselNav');
+        let currentSlide = 0;
+        const totalSlides = 5; // 5 services
+
+        // Create navigation dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'nav-btn';
+            if (i === 0) dot.classList.add('active');
+            dot.setAttribute('data-index', i);
+            carouselNav.appendChild(dot);
+        }
+
+        const navDots = document.querySelectorAll('.nav-btn');
+
+        function showSlide(index) {
+            servicesWrapper.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update active dot
+            navDots.forEach(dot => dot.classList.remove('active'));
+            navDots[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+
+        // Add click events to navigation dots
+        navDots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showSlide(index);
+            });
+        });
+
+        // Previous button
+        prevBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+        });
+
+        // Next button
+        nextBtn.addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        });
+
+        // Auto slide every 5 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            showSlide(currentSlide);
+        }, 5000);
 
         // Job Updates Data (This would typically come from a database)
         const jobUpdates = [
@@ -1034,6 +1203,3 @@
     </script>
 </body>
 </html>
-
-
-

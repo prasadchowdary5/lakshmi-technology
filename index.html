@@ -8,9 +8,9 @@
     <style>
         /* CSS Variables for consistent theming */
         :root {
-            --primary: #e00000;
-            --secondary: #e22d2d;
-            --accent: #ff6b6b;
+            --primary: #0066cc;
+            --secondary: #004d99;
+            --accent: #3399ff;
             --light: #f8f9fa;
             --dark: #343a40;
             --success: #28a745;
@@ -67,13 +67,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(224, 0, 0, 0.6);
+            background: rgba(0, 102, 204, 0.6);
             z-index: -1;
         }
 
         /* Header Styles */
         header {
-            background: rgba(224, 0, 0, 0.85);
+            background: rgba(0, 102, 204, 0.95);
             color: white;
             padding: 1rem 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -98,30 +98,7 @@
         .logo-img {
             height: 50px;
             width: auto;
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo-text {
-            background: linear-gradient(to right, #ffd700, #ff8c00, #ff4500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .logo-text::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(to right, #ffd700, #ff8c00, #ff4500);
-            border-radius: 2px;
+            filter: brightness(0) invert(1); /* Make logo white */
         }
 
         /* Navigation Styles */
@@ -145,7 +122,7 @@
         }
 
         nav ul li a:hover {
-            color: #ffd700;
+            color: #cce6ff;
         }
 
         nav ul li a::after {
@@ -155,7 +132,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #ffd700;
+            background-color: #cce6ff;
             transition: var(--transition);
         }
 
@@ -236,20 +213,20 @@
 
         .cta-button {
             display: inline-block;
-            background-color: #ffd700;
-            color: #e00000;
+            background-color: #ffffff;
+            color: #0066cc;
             padding: 0.8rem 2rem;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
-            background-color: #ffed4e;
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.6);
+            background-color: #f0f8ff;
         }
 
         /* Services Section */
@@ -267,7 +244,7 @@
 
         .section-title h2 {
             font-size: 2.2rem;
-            color: #e00000;
+            color: #0066cc;
             display: inline-block;
         }
 
@@ -279,7 +256,7 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(to right, #e00000, #e22d2d);
+            background: linear-gradient(to right, #0066cc, #3399ff);
             border-radius: 2px;
         }
 
@@ -310,7 +287,7 @@
         .service-icon {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, #e00000, #e22d2d);
+            background: linear-gradient(135deg, #0066cc, #3399ff);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -318,7 +295,7 @@
             margin-bottom: 20px;
             color: white;
             font-size: 2.5rem;
-            box-shadow: 0 5px 15px rgba(224, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 102, 204, 0.3);
         }
 
         .service-card h3 {
@@ -351,7 +328,7 @@
 
         .service-link {
             display: inline-block;
-            background-color: #e00000;
+            background-color: #0066cc;
             color: white;
             padding: 10px 25px;
             border-radius: 5px;
@@ -362,7 +339,7 @@
         }
 
         .service-link:hover {
-            background-color: #e22d2d;
+            background-color: #3399ff;
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
@@ -392,7 +369,7 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(224, 0, 0, 0.8);
+            background: rgba(0, 102, 204, 0.8);
             color: white;
             border: none;
             width: 40px;
@@ -407,7 +384,7 @@
         }
 
         .carousel-arrow:hover {
-            background: rgba(224, 0, 0, 1);
+            background: rgba(0, 102, 204, 1);
         }
 
         .carousel-arrow.prev {
@@ -447,7 +424,7 @@
         }
 
         .job-updates-sidebar h3 {
-            color: #e00000;
+            color: #0066cc;
             margin-bottom: 1rem;
             padding-bottom: 0.5rem;
             border-bottom: 2px solid #eee;
@@ -484,7 +461,7 @@
 
         .job-company {
             font-weight: 600;
-            color: #e00000;
+            color: #0066cc;
         }
 
         .job-address {
@@ -494,7 +471,7 @@
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, #e00000, #e22d2d);
+            background: linear-gradient(135deg, #0066cc, #3399ff);
             color: white;
             padding: 3rem 0 1.5rem;
         }
@@ -520,7 +497,7 @@
             left: 0;
             width: 40px;
             height: 3px;
-            background-color: #ffd700;
+            background-color: #cce6ff;
         }
 
         .footer-column ul {
@@ -572,7 +549,7 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 70px);
-                background: linear-gradient(135deg, #e00000, #e22d2d);
+                background: linear-gradient(135deg, #0066cc, #3399ff);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
@@ -666,7 +643,7 @@
         }
 
         .modal h2 {
-            color: #e00000;
+            color: #0066cc;
             margin-bottom: 1.5rem;
             text-align: center;
         }
@@ -707,7 +684,7 @@
         }
 
         .btn-primary {
-            background: #e00000;
+            background: #0066cc;
             color: white;
         }
 
@@ -737,9 +714,8 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <!-- Replace with your actual logo path -->
-                    <img src="LOGO.png" alt="Laxmi Technologies" class="logo-img">
-                    <h1 class="logo-text">Laxmi Technologies</h1>
+                    <!-- Your Laxmi Technologies logo -->
+                    <img src="laxmi.png" alt="Laxmi Technologies" class="logo-img">
                 </div>
                 <button class="menu-toggle" id="menuToggle">☰</button>
                 <nav>
@@ -798,8 +774,8 @@
                         
                         <div class="service-contact">
                             <p><strong>Contact us for PAN Card Services:</strong></p>
-                            <p><i class="fas fa-mobile-alt"></i> Mobile: +91 98765 43210</p>
-                            <p><i class="fas fa-envelope"></i> Email: pancard@laxmitech.com</p>
+                            <p><i class="fas fa-mobile-alt"></i> Mobile: +91 99890 28100</p>
+                            <p><i class="fas fa-envelope"></i> Email: kommunaveen1@gmail.com</p>
                         </div>
                         
                         <a href="#" class="service-link" id="panServiceLink">Apply Now</a>

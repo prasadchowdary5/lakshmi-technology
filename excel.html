@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excel Tutorials - Laxmi Technologies</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* CSS Variables for consistent theming */
         :root {
-            --primary: #4a00e0;
-            --secondary: #8e2de2;
-            --accent: #ff6b6b;
+            --primary: #0066cc;
+            --secondary: #004d99;
+            --accent: #3399ff;
             --light: #f8f9fa;
             --dark: #343a40;
             --success: #28a745;
@@ -41,13 +42,14 @@
 
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            background: rgba(0, 102, 204, 0.95);
             color: white;
             padding: 1rem 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
+            backdrop-filter: blur(10px);
         }
 
         .header-content {
@@ -65,14 +67,7 @@
         .logo-img {
             height: 50px;
             width: auto;
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(to right, #ff6b6b, #ff8e53);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            filter: brightness(0) invert(1); /* Make logo white */
         }
 
         /* Navigation Styles */
@@ -96,7 +91,7 @@
         }
 
         nav ul li a:hover {
-            color: #ff6b6b;
+            color: #cce6ff;
         }
 
         nav ul li a::after {
@@ -106,11 +101,19 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #ff6b6b;
+            background-color: #cce6ff;
             transition: var(--transition);
         }
 
         nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        nav ul li a.active {
+            color: #cce6ff;
+        }
+
+        nav ul li a.active::after {
             width: 100%;
         }
 
@@ -167,7 +170,7 @@
 
         /* Page Header */
         .page-header {
-            background: linear-gradient(rgba(74, 0, 224, 0.9), rgba(142, 45, 226, 0.9)), url('https://images.unsplash.com/photo-1618044619884-20dadb4981c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background: linear-gradient(rgba(0, 102, 204, 0.9), rgba(51, 153, 255, 0.9)), url('https://images.unsplash.com/photo-1618044619884-20dadb4981c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
             color: white;
@@ -221,7 +224,7 @@
 
         .section-title h2 {
             font-size: 1.8rem;
-            color: #4a00e0;
+            color: #0066cc;
         }
 
         .section-title::after {
@@ -231,7 +234,7 @@
             left: 0;
             width: 60px;
             height: 3px;
-            background: linear-gradient(to right, #4a00e0, #8e2de2);
+            background: linear-gradient(to right, #0066cc, #3399ff);
             border-radius: 2px;
         }
 
@@ -246,7 +249,7 @@
             background: #f8f9fa;
             border-radius: 8px;
             padding: 1.5rem;
-            border-left: 4px solid #4a00e0;
+            border-left: 4px solid #0066cc;
             transition: var(--transition);
         }
 
@@ -256,7 +259,7 @@
         }
 
         .formula-card h3 {
-            color: #4a00e0;
+            color: #0066cc;
             margin-bottom: 1rem;
             font-size: 1.3rem;
         }
@@ -290,7 +293,7 @@
         }
 
         .shortcut-key {
-            background: #4a00e0;
+            background: #0066cc;
             color: white;
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
@@ -399,7 +402,7 @@
 
         .video-play-btn i {
             font-size: 1.5rem;
-            color: #4a00e0;
+            color: #0066cc;
         }
 
         /* Video Modal */
@@ -474,13 +477,13 @@
         }
 
         .filter-btn.active {
-            background: #4a00e0;
+            background: #0066cc;
             color: white;
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            background: linear-gradient(135deg, #0066cc, #3399ff);
             color: white;
             padding: 3rem 0 1.5rem;
         }
@@ -506,7 +509,7 @@
             left: 0;
             width: 40px;
             height: 3px;
-            background-color: #ff6b6b;
+            background-color: #cce6ff;
         }
 
         .footer-column ul {
@@ -558,7 +561,7 @@
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 70px);
-                background: linear-gradient(135deg, #4a00e0, #8e2de2);
+                background: linear-gradient(135deg, #0066cc, #3399ff);
                 flex-direction: column;
                 align-items: center;
                 justify-content: flex-start;
@@ -639,9 +642,8 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <!-- Replace with your actual logo path -->
-                    <img src="LOGO.png" alt="Laxmi Technologies" class="logo-img">
-                    <h1>Laxmi Technologies</h1>
+                    <!-- Your Laxmi Technologies logo -->
+                    <img src="laxmi1.png" alt="Laxmi Technologies" class="logo-img">
                 </div>
                 <button class="menu-toggle" id="menuToggle">☰</button>
                 <nav>
@@ -1060,8 +1062,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-

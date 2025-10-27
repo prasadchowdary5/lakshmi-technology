@@ -527,6 +527,183 @@
             color: rgba(255, 255, 255, 0.7);
         }
 
+        /* Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .chatbot-toggle.whatsapp {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            margin-bottom: 15px;
+        }
+
+        .chatbot-toggle.chatbot {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .chatbot-toggle .notification {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            background-color: #ff4444;
+            border-radius: 50%;
+            color: white;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .message.bot {
+            align-self: flex-start;
+            background: #f0f0f0;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+        }
+
+        .chatbot-input button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chatbot-input button:hover {
+            background: var(--secondary);
+        }
+
+        .quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-question {
+            background: #e9ecef;
+            border: none;
+            border-radius: 15px;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .quick-question:hover {
+            background: #dee2e6;
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .job-updates-container {
@@ -606,6 +783,12 @@
             .service-contact p {
                 flex-direction: column;
                 gap: 5px;
+            }
+
+            .chatbot-window {
+                width: 300px;
+                height: 400px;
+                right: -10px;
             }
         }
 
@@ -898,6 +1081,42 @@
         </div>
     </footer>
 
+    <!-- Chatbot and WhatsApp Buttons -->
+    <div class="chatbot-container">
+        <button class="chatbot-toggle whatsapp" id="whatsappBtn" title="Contact us on WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+        </button>
+        <button class="chatbot-toggle chatbot" id="chatbotToggle" title="Ask questions about our services">
+            <i class="fas fa-robot"></i>
+            <span class="notification">1</span>
+        </button>
+        
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>Laxmi Technologies Assistant</h3>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot">
+                    Hello! I'm your Laxmi Technologies assistant. How can I help you today?
+                    <div class="quick-questions">
+                        <button class="quick-question" data-question="What services do you offer?">What services do you offer?</button>
+                        <button class="quick-question" data-question="How to apply for PAN card?">How to apply for PAN card?</button>
+                        <button class="quick-question" data-question="What are your contact details?">What are your contact details?</button>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Type your question here...">
+                <button id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- PAN Card Registration Modal -->
     <div id="panModal" class="modal">
         <div class="modal-content">
@@ -1176,7 +1395,118 @@
         video.addEventListener('error', function() {
             console.error('Error loading video. Please check the file path and format.');
         });
+
+        // Chatbot Functionality
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+        const whatsappBtn = document.getElementById('whatsappBtn');
+        const quickQuestions = document.querySelectorAll('.quick-question');
+
+        // Toggle chatbot window
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('active');
+            // Remove notification once chatbot is opened
+            document.querySelector('.notification').style.display = 'none';
+        });
+
+        // Close chatbot window
+        chatbotClose.addEventListener('click', () => {
+            chatbotWindow.classList.remove('active');
+        });
+
+        // WhatsApp button functionality
+        whatsappBtn.addEventListener('click', () => {
+            const whatsappNumber = "+919989028100";
+            const whatsappUrl = `https://wa.me/${whatsappNumber}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Chatbot responses
+        const responses = {
+            "hello": "Hello! How can I assist you with Laxmi Technologies services today?",
+            "hi": "Hi there! How can I help you?",
+            "services": "We offer PAN card services, Aadhar card download, UMANG services, resume builder, computer repairs, Excel tutorials, and job updates.",
+            "pan card": "You can apply for a PAN card through our website. We'll help you with the application process and documentation.",
+            "aadhar": "You can download your Aadhar card directly from the official UIDAI website through our portal.",
+            "umang": "UMANG (Unified Mobile Application for New-age Governance) provides access to various government services in one app.",
+            "resume": "Our resume builder helps you create professional CVs quickly and easily with customizable templates.",
+            "repairs": "We provide computer and laptop repair services for both hardware and software issues. Contact us at +91 99890 28100.",
+            "contact": "You can reach us at +91 99890 28100 or email info@laxmitech.com. Our office is in Mumbai, India.",
+            "address": "Our office is located in Mumbai, India. For specific location details, please contact us at +91 99890 28100.",
+            "hours": "Our customer support is available from 9 AM to 6 PM, Monday to Saturday.",
+            "excel": "We offer Excel tutorials and formula guides to help you master spreadsheet skills for personal and professional use.",
+            "job": "We regularly update job opportunities in our Job Updates section. Check back frequently for new postings.",
+            "thank": "You're welcome! Let me know if you need any other assistance.",
+            "default": "I'm sorry, I didn't understand that. Could you please rephrase your question? You can also contact us directly at +91 99890 28100 for specific queries."
+        };
+
+        // Function to add message to chat
+        function addMessage(text, isUser = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+            messageDiv.textContent = text;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        // Function to get bot response
+        function getBotResponse(userMessage) {
+            userMessage = userMessage.toLowerCase();
+            
+            // Check for keywords in the user message
+            for (const [keyword, response] of Object.entries(responses)) {
+                if (userMessage.includes(keyword)) {
+                    return response;
+                }
+            }
+            
+            return responses.default;
+        }
+
+        // Send message function
+        function sendMessage() {
+            const userMessage = chatbotInput.value.trim();
+            if (userMessage === '') return;
+            
+            // Add user message
+            addMessage(userMessage, true);
+            chatbotInput.value = '';
+            
+            // Simulate typing delay
+            setTimeout(() => {
+                // Add bot response
+                const botResponse = getBotResponse(userMessage);
+                addMessage(botResponse);
+            }, 1000);
+        }
+
+        // Send message on button click
+        chatbotSend.addEventListener('click', sendMessage);
+
+        // Send message on Enter key
+        chatbotInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Quick question buttons
+        quickQuestions.forEach(button => {
+            button.addEventListener('click', () => {
+                const question = button.getAttribute('data-question');
+                addMessage(question, true);
+                
+                // Simulate typing delay
+                setTimeout(() => {
+                    const botResponse = getBotResponse(question);
+                    addMessage(botResponse);
+                }, 1000);
+            });
+        });
     </script>
 </body>
 </html>
-
